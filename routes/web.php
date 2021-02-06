@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::any('/backoffice/{slug}', function () {
     return view('layouts.backend');
 });
+
+Route::any('/auth/{slug}', function () {
+    return view('layouts.auth');
+});
