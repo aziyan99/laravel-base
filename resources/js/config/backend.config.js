@@ -10,6 +10,7 @@ if (token) {
 import Vue from 'vue';
 import { Form, HasError, AlertError } from 'vform';
 import Toasted from 'vue-toasted';
+import moment from 'moment';
 
 window.Fire = new Vue();
 window.Form = Form;
@@ -20,8 +21,14 @@ const toastedOptions = {
 	duration : 3000
 };
 
-Vue.use(Toasted, toastedOptions)
+Vue.use(Toasted, toastedOptions);
 
+Vue.filter('formatDate', function (createdAt) {
+    moment.locale('id');
+    return moment(createdAt).format('dddd');
+});
+
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
