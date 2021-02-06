@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keyword" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login | Admin Area</title>
     <!-- Main styles for this application-->
     <link href="{{ asset('assets/backend') }}/css/style.css" rel="stylesheet">

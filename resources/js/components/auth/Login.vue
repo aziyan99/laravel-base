@@ -4,30 +4,36 @@
             <div class="card-body">
                 <h1>Masuk</h1>
                 <p class="text-muted">Masuk untuk mengakses sistem</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="c-icon cil-envelope-closed"></i>
-                        </span>
+                <form @submit.prevent="authenticate" @keydown="form.onKeydown($event)">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="c-icon cil-envelope-closed"></i>
+                            </span>
+                        </div>
+                        <input class="form-control" type="email" placeholder="Email" autocomplete="off"
+                            v-model="form.email" :class="{'is-invalid': form.errors.has('email')}">
+                        <has-error :form="form" field="email"></has-error>
                     </div>
-                    <input class="form-control" type="email" placeholder="Email">
-                </div>
-                <div class="input-group mb-4">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="c-icon cil-lock-locked"></i>
-                        </span>
+                    <div class="input-group mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="c-icon cil-lock-locked"></i>
+                            </span>
+                        </div>
+                        <input class="form-control" type="password" autocomplete="off" placeholder="Kata Sandi"
+                            v-model="form.password" :class="{'is-invalid': form.errors.has('password')}">
+                        <has-error :form="form" field="password"></has-error>
                     </div>
-                    <input class="form-control" type="password" autocomplete="off" placeholder="Kata Sandi">
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <button class="btn btn-primary px-4" type="button">Masuk</button>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class="btn btn-primary px-4" type="submit" :disabled="form.busy">Masuk</button>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button class="btn btn-link px-0" type="button">Lupa kata sandi?</button>
+                        </div>
                     </div>
-                    <div class="col-6 text-right">
-                        <button class="btn btn-link px-0" type="button">Lupa kata sandi?</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
@@ -42,3 +48,47 @@
         </div>
     </div>
 </template>
+<script>
+    export default {
+        data() {
+            return {
+                form: new Form({
+                    email: '',
+                    password: ''
+                })
+            }
+        },
+        methods: {
+            authenticate() {
+                this.$toasted.show("Mengotentikasi ...");
+                axios.get('/sanctum/csrf-cookie')
+                    .then(() => {
+                        this.form.post('/api/v1/login')
+                            .then(res => {
+                                if (res.data.msg !== "Login successfull!") {
+                                    this.$toasted.error("Email atau kata sandi salah!");
+                                } else {
+                                    this.$toasted.success("Login berhasil!");
+                                    this.$toasted.show("Mengalihkan ...");
+                                    this.form.reset();
+                                    this.form.clear();
+                                    setTimeout(function () {
+                                        window.location.replace("/backoffice/profile");
+                                    }, 1000);
+                                }
+                            })
+                            .catch(err => {
+                                this.$toasted.error(err);
+                            });
+                    })
+                    .catch(err => {
+                        this.$toasted.error(err);
+                    });
+            }
+        },
+        created() {
+            //
+        }
+    }
+
+</script>

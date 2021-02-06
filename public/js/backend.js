@@ -1961,11 +1961,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       pageTitle: ''
     };
+  },
+  methods: {
+    logout: function logout() {
+      axios.post("".concat(RESTURIV1, "/logout")).then(function () {
+        window.location.replace("/");
+      })["catch"]();
+    }
   },
   created: function created() {
     var _this = this;
@@ -2121,8 +2129,17 @@ window.axios.defaults.withCredentials = true;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
 
 window.Fire = new vue__WEBPACK_IMPORTED_MODULE_0__.default();
+window.RESTURIV1 = '/api/v1';
 
 /***/ }),
 
@@ -33704,7 +33721,34 @@ var render = function() {
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
-      _vm._m(4),
+      _c("ul", { staticClass: "c-header-nav ml-auto mr-4" }, [
+        _vm._m(4),
+        _vm._v(" "),
+        _c("li", { staticClass: "c-header-nav-item dropdown" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "dropdown-menu dropdown-menu-right pt-0" }, [
+            _vm._m(6),
+            _vm._v(" "),
+            _vm._m(7),
+            _vm._v(" "),
+            _c("div", { staticClass: "dropdown-divider" }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "dropdown-item",
+                attrs: { type: "button" },
+                on: { click: _vm.logout }
+              },
+              [
+                _c("i", { staticClass: "mr-3 c-icon cil-account-logout" }),
+                _vm._v("Keluar\n                ")
+              ]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "c-subheader px-3" }, [
         _c("ol", { staticClass: "breadcrumb border-0 m-0" }, [
@@ -33803,57 +33847,56 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "c-header-nav ml-auto mr-4" }, [
-      _c("li", { staticClass: "c-header-nav-item d-md-down-none mx-2" }, [
-        _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
-          _c("i", { staticClass: "c-icon-lg c-icon cil-bell" })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "c-header-nav-item dropdown" }, [
-        _c(
-          "a",
-          {
-            staticClass: "c-header-nav-link",
-            attrs: {
-              "data-toggle": "dropdown",
-              href: "#",
-              role: "button",
-              "aria-haspopup": "true",
-              "aria-expanded": "false"
-            }
-          },
-          [
-            _c("div", { staticClass: "c-avatar" }, [
-              _c("img", {
-                staticClass: "c-avatar-img",
-                attrs: {
-                  src: "/assets/backend/assets/img/avatars/6.jpg",
-                  alt: "user@email.com"
-                }
-              })
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "dropdown-menu dropdown-menu-right pt-0" }, [
-          _c("div", { staticClass: "dropdown-header bg-light py-2" }, [
-            _c("strong", [_vm._v("Settings")])
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "mr-3 c-icon cil-user" }),
-            _vm._v("\n                    Profile\n                ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "mr-3 c-icon cil-account-logout" }),
-            _vm._v("Logout")
-          ])
-        ])
+    return _c("li", { staticClass: "c-header-nav-item d-md-down-none mx-2" }, [
+      _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "c-icon-lg c-icon cil-bell" })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "c-header-nav-link",
+        attrs: {
+          "data-toggle": "dropdown",
+          href: "#",
+          role: "button",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [
+        _c("div", { staticClass: "c-avatar" }, [
+          _c("img", {
+            staticClass: "c-avatar-img",
+            attrs: {
+              src: "/assets/backend/assets/img/avatars/6.jpg",
+              alt: "user@email.com"
+            }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "dropdown-header bg-light py-2" }, [
+      _c("strong", [_vm._v("Settings")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "mr-3 c-icon cil-user" }),
+      _vm._v("\n                    Profile\n                ")
     ])
   }
 ]

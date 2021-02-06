@@ -38,8 +38,9 @@
                         Profile
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="mr-3 c-icon cil-account-logout"></i>Logout</a>
+                    <button class="dropdown-item" type="button" @click="logout">
+                        <i class="mr-3 c-icon cil-account-logout"></i>Keluar
+                    </button>
                 </div>
             </li>
         </ul>
@@ -59,6 +60,15 @@ export default {
     data(){
         return{
             pageTitle:'',
+        }
+    },
+    methods:{
+        logout(){
+            axios.post(`${RESTURIV1}/logout`)
+            .then(() => {
+                window.location.replace("/");
+            })
+            .catch();
         }
     },
     created(){

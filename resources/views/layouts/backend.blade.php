@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keyword" content="">
-    <title>CoreUI Free Bootstrap Admin Template</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Admin Area</title>
     <!-- Main styles for this application-->
     <link href="{{ asset('assets/backend') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('assets/backend') }}/vendors/@coreui/icons/css/free.min.css" rel="stylesheet">
