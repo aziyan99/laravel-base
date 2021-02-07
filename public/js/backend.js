@@ -57450,635 +57450,614 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("table-loading", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.isLoading,
-            expression: "isLoading"
-          }
-        ]
-      }),
-      _vm._v(" "),
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
       _c(
         "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.isLoading,
-              expression: "!isLoading"
-            }
-          ],
-          staticClass: "card"
-        },
+        { staticClass: "card-body" },
         [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c("div", { staticClass: "text-right" }, [
-                _vm.deletePermissions.length > 0
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.showBulkDestroyPermissionModal }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "c-icon cil-trash align-middle mr-2"
-                        }),
-                        _vm._v("Hapus yang dipilih\n                ")
-                      ]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button", disabled: "" }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "c-icon cil-trash align-middle mr-2"
-                        }),
-                        _vm._v("Hapus yang dipilih\n                ")
-                      ]
-                    ),
-                _vm._v(" "),
-                _c(
+          _c("div", { staticClass: "text-right" }, [
+            _vm.deletePermissions.length > 0
+              ? _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
-                    on: { click: _vm.showCreatePermissionModal }
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.showBulkDestroyPermissionModal }
                   },
                   [
                     _c("i", {
-                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                      staticClass: "c-icon cil-trash align-middle mr-2"
                     }),
-                    _vm._v(
-                      "\n                    Tambah Permission\n                "
-                    )
+                    _vm._v("Hapus yang dipilih\n                ")
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row mt-3" }, [
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.count,
-                          expression: "count"
-                        }
-                      ],
-                      staticStyle: { width: "40px" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.count = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "999999999" } }, [
-                        _vm._v("all")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6 text-right" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.keywords,
-                        expression: "keywords"
-                      }
-                    ],
-                    staticStyle: { width: "300px" },
-                    domProps: { value: _vm.keywords },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.keywords = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "table-responsive" }, [
-                _c(
-                  "table",
+              : _c(
+                  "button",
                   {
-                    staticClass:
-                      "table table-hover table-bordered table-sm mt-3"
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", disabled: "" }
                   },
                   [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [
+                    _c("i", {
+                      staticClass: "c-icon cil-trash align-middle mr-2"
+                    }),
+                    _vm._v("Hapus yang dipilih\n                ")
+                  ]
+                ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.showCreatePermissionModal }
+              },
+              [
+                _c("i", { staticClass: "c-icon mr-2 cil-plus align-middle" }),
+                _vm._v(
+                  "\n                    Tambah Permission\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [
+            _c("div", { staticClass: "col-lg-6" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.count,
+                      expression: "count"
+                    }
+                  ],
+                  staticStyle: { width: "40px" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.count = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "999999999" } }, [
+                    _vm._v("all")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 text-right" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticStyle: { width: "300px" },
+                domProps: { value: _vm.keywords },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("table-loading", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.isLoading,
+                expression: "isLoading"
+              }
+            ],
+            staticClass: "mt-3"
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLoading,
+                  expression: "!isLoading"
+                }
+              ],
+              staticClass: "table-responsive"
+            },
+            [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered table-sm mt-3"
+                },
+                [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.allSelect,
+                              expression: "allSelect"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.allSelect)
+                              ? _vm._i(_vm.allSelect, null) > -1
+                              : _vm.allSelect
+                          },
+                          on: {
+                            click: _vm.selectAll,
+                            change: function($event) {
+                              var $$a = _vm.allSelect,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.allSelect = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.allSelect = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.allSelect = $$c
+                              }
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Nama")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Guard name")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tanggal ditambahkan")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Aksi")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.permissions.data, function(permission) {
+                      return _c("tr", { key: permission.id }, [
+                        _c("td", [
                           _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.allSelect,
-                                expression: "allSelect"
+                                value: _vm.deletePermissions,
+                                expression: "deletePermissions"
                               }
                             ],
                             attrs: { type: "checkbox" },
                             domProps: {
-                              checked: Array.isArray(_vm.allSelect)
-                                ? _vm._i(_vm.allSelect, null) > -1
-                                : _vm.allSelect
+                              value: "" + permission.id,
+                              checked: Array.isArray(_vm.deletePermissions)
+                                ? _vm._i(
+                                    _vm.deletePermissions,
+                                    "" + permission.id
+                                  ) > -1
+                                : _vm.deletePermissions
                             },
                             on: {
-                              click: _vm.selectAll,
                               change: function($event) {
-                                var $$a = _vm.allSelect,
+                                var $$a = _vm.deletePermissions,
                                   $$el = $event.target,
                                   $$c = $$el.checked ? true : false
                                 if (Array.isArray($$a)) {
-                                  var $$v = null,
+                                  var $$v = "" + permission.id,
                                     $$i = _vm._i($$a, $$v)
                                   if ($$el.checked) {
                                     $$i < 0 &&
-                                      (_vm.allSelect = $$a.concat([$$v]))
+                                      (_vm.deletePermissions = $$a.concat([
+                                        $$v
+                                      ]))
                                   } else {
                                     $$i > -1 &&
-                                      (_vm.allSelect = $$a
+                                      (_vm.deletePermissions = $$a
                                         .slice(0, $$i)
                                         .concat($$a.slice($$i + 1)))
                                   }
                                 } else {
-                                  _vm.allSelect = $$c
+                                  _vm.deletePermissions = $$c
                                 }
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Nama")]),
+                        _c("td", [_vm._v(_vm._s(permission.name))]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Guard name")]),
+                        _c("td", [_vm._v(_vm._s(permission.guard_name))]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Tanggal ditambahkan")]),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("formatDate")(permission.created_at))
+                          )
+                        ]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Aksi")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.permissions.data, function(permission) {
-                        return _c("tr", { key: permission.id }, [
-                          _c("td", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.deletePermissions,
-                                  expression: "deletePermissions"
-                                }
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                value: "" + permission.id,
-                                checked: Array.isArray(_vm.deletePermissions)
-                                  ? _vm._i(
-                                      _vm.deletePermissions,
-                                      "" + permission.id
-                                    ) > -1
-                                  : _vm.deletePermissions
-                              },
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning btn-sm",
                               on: {
-                                change: function($event) {
-                                  var $$a = _vm.deletePermissions,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = "" + permission.id,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.deletePermissions = $$a.concat([
-                                          $$v
-                                        ]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.deletePermissions = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.deletePermissions = $$c
-                                  }
+                                click: function($event) {
+                                  return _vm.showEditPermissionModal(permission)
                                 }
                               }
-                            })
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(permission.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(permission.guard_name))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(
-                                _vm._f("formatDate")(permission.created_at)
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "c-icon cil-pencil mr-1 align-middle"
+                              }),
+                              _vm._v(
+                                "\n                                    edit\n                                "
                               )
-                            )
-                          ]),
+                            ]
+                          ),
                           _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showEditPermissionModal(
-                                      permission
-                                    )
-                                  }
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showDestroyPermissionModal(
+                                    permission
+                                  )
                                 }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass:
-                                    "c-icon cil-pencil mr-1 align-middle"
-                                }),
-                                _vm._v(
-                                  "\n                                    edit\n                                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showDestroyPermissionModal(
-                                      permission
-                                    )
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass:
-                                    "c-icon cil-trash mr-1 align-middle"
-                                }),
-                                _vm._v(
-                                  "\n                                    hapus\n                                "
-                                )
-                              ]
-                            )
-                          ])
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "c-icon cil-trash mr-1 align-middle"
+                              }),
+                              _vm._v(
+                                "\n                                    hapus\n                                "
+                              )
+                            ]
+                          )
                         ])
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "pagination",
-                {
-                  attrs: { align: "right", data: _vm.permissions },
-                  on: { "pagination-change-page": _vm.getPermissions }
-                },
-                [
-                  _c(
-                    "span",
-                    { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-                    [_vm._v("Prev")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                    [_vm._v("Next")]
+                      ])
+                    }),
+                    0
                   )
                 ]
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "permissionModal",
-                tabindex: "-1",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c("div", { staticClass: "modal-dialog" }, [
-                _c("div", { staticClass: "modal-content" }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.editMode,
-                            expression: "!editMode"
-                          }
-                        ],
-                        staticClass: "modal-title"
-                      },
-                      [_vm._v("Tambah Permission Baru")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.editMode,
-                            expression: "editMode"
-                          }
-                        ],
-                        staticClass: "modal-title"
-                      },
-                      [_vm._v("Ubah Permission")]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(0)
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          _vm.editMode
-                            ? _vm.updatePermission()
-                            : _vm.storePermission()
-                        },
-                        keydown: function($event) {
-                          return _vm.form.onKeydown($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Nama permission")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.name,
-                                  expression: "form.name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              class: {
-                                "is-invalid": _vm.form.errors.has("name")
-                              },
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.form.name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "name",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.form, field: "name" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Guard name")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.guard_name,
-                                  expression: "form.guard_name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              class: {
-                                "is-invalid": _vm.form.errors.has("guard_name")
-                              },
-                              attrs: { type: "text", readonly: "" },
-                              domProps: { value: _vm.form.guard_name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "guard_name",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.form, field: "guard_name" }
-                            })
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ]
-                  )
-                ])
-              ])
             ]
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "pagination",
             {
-              staticClass: "modal fade",
-              attrs: {
-                id: "destroyPermissionModal",
-                tabindex: "-1",
-                "aria-hidden": "true"
-              }
+              attrs: { align: "right", data: _vm.permissions },
+              on: { "pagination-change-page": _vm.getPermissions }
             },
             [
-              _c("div", { staticClass: "modal-dialog" }, [
-                _c("div", { staticClass: "modal-content" }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.bulkDeleteMode,
-                            expression: "!bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "modal-title"
-                      },
-                      [_vm._v("Hapus Permission")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.bulkDeleteMode,
-                            expression: "bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "modal-title"
-                      },
-                      [_vm._v("Hapus Masal")]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(2)
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "modal-footer" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.bulkDeleteMode,
-                            expression: "!bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.destroyPermission }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "align-middle c-icon cil-trash mr-1"
-                        }),
-                        _vm._v(
-                          "\n                            Hapus\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.bulkDeleteMode,
-                            expression: "bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.bulkDestroy }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "align-middle c-icon cil-trash mr-1"
-                        }),
-                        _vm._v(
-                          "\n                            Hapus\n                        "
-                        )
-                      ]
-                    )
-                  ])
-                ])
+              _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+                _vm._v("Prev")
+              ]),
+              _vm._v(" "),
+              _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+                _vm._v("Next")
               ])
             ]
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "permissionModal",
+            tabindex: "-1",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editMode,
+                        expression: "!editMode"
+                      }
+                    ],
+                    staticClass: "modal-title"
+                  },
+                  [_vm._v("Tambah Permission Baru")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editMode,
+                        expression: "editMode"
+                      }
+                    ],
+                    staticClass: "modal-title"
+                  },
+                  [_vm._v("Ubah Permission")]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode
+                        ? _vm.updatePermission()
+                        : _vm.storePermission()
+                    },
+                    keydown: function($event) {
+                      return _vm.form.onKeydown($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nama permission")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Guard name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.guard_name,
+                              expression: "form.guard_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("guard_name")
+                          },
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.guard_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "guard_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "guard_name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "destroyPermissionModal",
+            tabindex: "-1",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.bulkDeleteMode,
+                        expression: "!bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "modal-title"
+                  },
+                  [_vm._v("Hapus Permission")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.bulkDeleteMode,
+                        expression: "bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "modal-title"
+                  },
+                  [_vm._v("Hapus Masal")]
+                ),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.bulkDeleteMode,
+                        expression: "!bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.destroyPermission }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "align-middle c-icon cil-trash mr-1"
+                    }),
+                    _vm._v(
+                      "\n                            Hapus\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.bulkDeleteMode,
+                        expression: "bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.bulkDestroy }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "align-middle c-icon cil-trash mr-1"
+                    }),
+                    _vm._v(
+                      "\n                            Hapus\n                        "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
         ]
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -58229,628 +58208,607 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("table-loading", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.isLoading,
-            expression: "isLoading"
-          }
-        ]
-      }),
-      _vm._v(" "),
+  return _c("div", [
+    _c("div", { staticClass: "card" }, [
       _c(
         "div",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: !_vm.isLoading,
-              expression: "!isLoading"
-            }
-          ],
-          staticClass: "card"
-        },
+        { staticClass: "card-body" },
         [
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c("div", { staticClass: "text-right" }, [
-                _vm.deleteRoles.length > 0
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.showBulkDestroyRoleForm }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "c-icon cil-trash align-middle mr-2"
-                        }),
-                        _vm._v("Hapus yang dipilih\n                ")
-                      ]
-                    )
-                  : _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button", disabled: "" }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "c-icon cil-trash align-middle mr-2"
-                        }),
-                        _vm._v("Hapus yang dipilih\n                ")
-                      ]
-                    ),
-                _vm._v(" "),
-                _c(
+          _c("div", { staticClass: "text-right" }, [
+            _vm.deleteRoles.length > 0
+              ? _c(
                   "button",
                   {
-                    staticClass: "btn btn-primary",
-                    on: { click: _vm.showCreateRoleFrom }
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.showBulkDestroyRoleForm }
                   },
                   [
                     _c("i", {
-                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                      staticClass: "c-icon cil-trash align-middle mr-2"
                     }),
-                    _vm._v(
-                      "\n                    Tambah Role\n                "
-                    )
+                    _vm._v("Hapus yang dipilih\n                ")
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row mt-3" }, [
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.count,
-                          expression: "count"
-                        }
-                      ],
-                      staticStyle: { width: "40px" },
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.count = $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
-                      _vm._v(" "),
-                      _c("option", { attrs: { value: "999999999" } }, [
-                        _vm._v("all")
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6 text-right" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.keywords,
-                        expression: "keywords"
-                      }
-                    ],
-                    staticStyle: { width: "300px" },
-                    domProps: { value: _vm.keywords },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.keywords = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "table-responsive" }, [
-                _c(
-                  "table",
+              : _c(
+                  "button",
                   {
-                    staticClass:
-                      "table table-hover table-bordered table-sm mt-3"
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button", disabled: "" }
                   },
                   [
-                    _c("thead", [
-                      _c("tr", [
-                        _c("th", [
+                    _c("i", {
+                      staticClass: "c-icon cil-trash align-middle mr-2"
+                    }),
+                    _vm._v("Hapus yang dipilih\n                ")
+                  ]
+                ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: { click: _vm.showCreateRoleFrom }
+              },
+              [
+                _c("i", { staticClass: "c-icon mr-2 cil-plus align-middle" }),
+                _vm._v("\n                    Tambah Role\n                ")
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-3" }, [
+            _c("div", { staticClass: "col-lg-6" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.count,
+                      expression: "count"
+                    }
+                  ],
+                  staticStyle: { width: "40px" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.count = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "999999999" } }, [
+                    _vm._v("all")
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-lg-6 text-right" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.keywords,
+                    expression: "keywords"
+                  }
+                ],
+                staticStyle: { width: "300px" },
+                domProps: { value: _vm.keywords },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.keywords = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("table-loading", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.isLoading,
+                expression: "isLoading"
+              }
+            ],
+            staticClass: "mt-3"
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.isLoading,
+                  expression: "!isLoading"
+                }
+              ],
+              staticClass: "table-responsive"
+            },
+            [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-hover table-bordered table-sm mt-3"
+                },
+                [
+                  _c("thead", [
+                    _c("tr", [
+                      _c("th", [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.allSelect,
+                              expression: "allSelect"
+                            }
+                          ],
+                          attrs: { type: "checkbox" },
+                          domProps: {
+                            checked: Array.isArray(_vm.allSelect)
+                              ? _vm._i(_vm.allSelect, null) > -1
+                              : _vm.allSelect
+                          },
+                          on: {
+                            click: _vm.selectAll,
+                            change: function($event) {
+                              var $$a = _vm.allSelect,
+                                $$el = $event.target,
+                                $$c = $$el.checked ? true : false
+                              if (Array.isArray($$a)) {
+                                var $$v = null,
+                                  $$i = _vm._i($$a, $$v)
+                                if ($$el.checked) {
+                                  $$i < 0 && (_vm.allSelect = $$a.concat([$$v]))
+                                } else {
+                                  $$i > -1 &&
+                                    (_vm.allSelect = $$a
+                                      .slice(0, $$i)
+                                      .concat($$a.slice($$i + 1)))
+                                }
+                              } else {
+                                _vm.allSelect = $$c
+                              }
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Nama")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Guard name")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Tanggal ditambahkan")]),
+                      _vm._v(" "),
+                      _c("th", [_vm._v("Aksi")])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.roles.data, function(role) {
+                      return _c("tr", { key: role.id }, [
+                        _c("td", [
                           _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.allSelect,
-                                expression: "allSelect"
+                                value: _vm.deleteRoles,
+                                expression: "deleteRoles"
                               }
                             ],
                             attrs: { type: "checkbox" },
                             domProps: {
-                              checked: Array.isArray(_vm.allSelect)
-                                ? _vm._i(_vm.allSelect, null) > -1
-                                : _vm.allSelect
+                              value: "" + role.id,
+                              checked: Array.isArray(_vm.deleteRoles)
+                                ? _vm._i(_vm.deleteRoles, "" + role.id) > -1
+                                : _vm.deleteRoles
                             },
                             on: {
-                              click: _vm.selectAll,
                               change: function($event) {
-                                var $$a = _vm.allSelect,
+                                var $$a = _vm.deleteRoles,
                                   $$el = $event.target,
                                   $$c = $$el.checked ? true : false
                                 if (Array.isArray($$a)) {
-                                  var $$v = null,
+                                  var $$v = "" + role.id,
                                     $$i = _vm._i($$a, $$v)
                                   if ($$el.checked) {
                                     $$i < 0 &&
-                                      (_vm.allSelect = $$a.concat([$$v]))
+                                      (_vm.deleteRoles = $$a.concat([$$v]))
                                   } else {
                                     $$i > -1 &&
-                                      (_vm.allSelect = $$a
+                                      (_vm.deleteRoles = $$a
                                         .slice(0, $$i)
                                         .concat($$a.slice($$i + 1)))
                                   }
                                 } else {
-                                  _vm.allSelect = $$c
+                                  _vm.deleteRoles = $$c
                                 }
                               }
                             }
                           })
                         ]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Nama")]),
+                        _c("td", [_vm._v(_vm._s(role.name))]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Guard name")]),
+                        _c("td", [_vm._v(_vm._s(role.guard_name))]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Tanggal ditambahkan")]),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm._f("formatDate")(role.created_at)))
+                        ]),
                         _vm._v(" "),
-                        _c("th", [_vm._v("Aksi")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.roles.data, function(role) {
-                        return _c("tr", { key: role.id }, [
-                          _c("td", [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.deleteRoles,
-                                  expression: "deleteRoles"
-                                }
-                              ],
-                              attrs: { type: "checkbox" },
-                              domProps: {
-                                value: "" + role.id,
-                                checked: Array.isArray(_vm.deleteRoles)
-                                  ? _vm._i(_vm.deleteRoles, "" + role.id) > -1
-                                  : _vm.deleteRoles
-                              },
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-warning btn-sm",
                               on: {
-                                change: function($event) {
-                                  var $$a = _vm.deleteRoles,
-                                    $$el = $event.target,
-                                    $$c = $$el.checked ? true : false
-                                  if (Array.isArray($$a)) {
-                                    var $$v = "" + role.id,
-                                      $$i = _vm._i($$a, $$v)
-                                    if ($$el.checked) {
-                                      $$i < 0 &&
-                                        (_vm.deleteRoles = $$a.concat([$$v]))
-                                    } else {
-                                      $$i > -1 &&
-                                        (_vm.deleteRoles = $$a
-                                          .slice(0, $$i)
-                                          .concat($$a.slice($$i + 1)))
-                                    }
-                                  } else {
-                                    _vm.deleteRoles = $$c
-                                  }
+                                click: function($event) {
+                                  return _vm.showEditRoleForm(role)
                                 }
                               }
-                            })
-                          ]),
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "c-icon cil-pencil mr-1 align-middle"
+                              }),
+                              _vm._v(
+                                "\n                                    edit\n                                "
+                              )
+                            ]
+                          ),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(role.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(role.guard_name))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(_vm._f("formatDate")(role.created_at))
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-warning btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showEditRoleForm(role)
-                                  }
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-danger btn-sm",
+                              on: {
+                                click: function($event) {
+                                  return _vm.showDestroyRoleForm(role)
                                 }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass:
-                                    "c-icon cil-pencil mr-1 align-middle"
-                                }),
-                                _vm._v(
-                                  "\n                                    edit\n                                "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-danger btn-sm",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.showDestroyRoleForm(role)
-                                  }
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass:
-                                    "c-icon cil-trash mr-1 align-middle"
-                                }),
-                                _vm._v(
-                                  "\n                                    hapus\n                                "
-                                )
-                              ]
-                            )
-                          ])
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "c-icon cil-trash mr-1 align-middle"
+                              }),
+                              _vm._v(
+                                "\n                                    hapus\n                                "
+                              )
+                            ]
+                          )
                         ])
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "pagination",
-                {
-                  attrs: { align: "right", data: _vm.roles },
-                  on: { "pagination-change-page": _vm.getRoles }
-                },
-                [
-                  _c(
-                    "span",
-                    { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
-                    [_vm._v("Prev")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    { attrs: { slot: "next-nav" }, slot: "next-nav" },
-                    [_vm._v("Next")]
+                      ])
+                    }),
+                    0
                   )
                 ]
               )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "modal fade",
-              attrs: {
-                id: "roleForm",
-                tabindex: "-1",
-                "aria-labelledby": "roleFormLabel",
-                "aria-hidden": "true"
-              }
-            },
-            [
-              _c("div", { staticClass: "modal-dialog" }, [
-                _c("div", { staticClass: "modal-content" }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.editMode,
-                            expression: "!editMode"
-                          }
-                        ],
-                        staticClass: "modal-title",
-                        attrs: { id: "roleFormLabel" }
-                      },
-                      [_vm._v("Tambah Role Baru")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.editMode,
-                            expression: "editMode"
-                          }
-                        ],
-                        staticClass: "modal-title",
-                        attrs: { id: "roleFormLabel" }
-                      },
-                      [_vm._v("Ubah Role")]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(0)
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          _vm.editMode ? _vm.updateRole() : _vm.storeRole()
-                        },
-                        keydown: function($event) {
-                          return _vm.form.onKeydown($event)
-                        }
-                      }
-                    },
-                    [
-                      _c("div", { staticClass: "modal-body" }, [
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Nama role")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.name,
-                                  expression: "form.name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              class: {
-                                "is-invalid": _vm.form.errors.has("name")
-                              },
-                              attrs: { type: "text" },
-                              domProps: { value: _vm.form.name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "name",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.form, field: "name" }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "form-group" },
-                          [
-                            _c("label", [_vm._v("Guard name")]),
-                            _vm._v(" "),
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.form.guard_name,
-                                  expression: "form.guard_name"
-                                }
-                              ],
-                              staticClass: "form-control",
-                              class: {
-                                "is-invalid": _vm.form.errors.has("guard_name")
-                              },
-                              attrs: { type: "text", readonly: "" },
-                              domProps: { value: _vm.form.guard_name },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
-                                  }
-                                  _vm.$set(
-                                    _vm.form,
-                                    "guard_name",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("has-error", {
-                              attrs: { form: _vm.form, field: "guard_name" }
-                            })
-                          ],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1)
-                    ]
-                  )
-                ])
-              ])
             ]
           ),
           _vm._v(" "),
           _c(
-            "div",
+            "pagination",
             {
-              staticClass: "modal fade",
-              attrs: {
-                id: "destroyRoleForm",
-                tabindex: "-1",
-                "aria-labelledby": "roleFormLabel",
-                "aria-hidden": "true"
-              }
+              attrs: { align: "right", data: _vm.roles },
+              on: { "pagination-change-page": _vm.getRoles }
             },
             [
-              _c("div", { staticClass: "modal-dialog" }, [
-                _c("div", { staticClass: "modal-content" }, [
-                  _c("div", { staticClass: "modal-header" }, [
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.bulkDeleteMode,
-                            expression: "!bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "modal-title",
-                        attrs: { id: "roleFormLabel" }
-                      },
-                      [_vm._v("Hapus Role")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "h5",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.bulkDeleteMode,
-                            expression: "bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "modal-title",
-                        attrs: { id: "roleFormLabel" }
-                      },
-                      [_vm._v("Hapus Masal")]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(2)
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "modal-footer" }, [
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.bulkDeleteMode,
-                            expression: "!bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.destroyRole }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "align-middle c-icon cil-trash mr-1"
-                        }),
-                        _vm._v(
-                          "\n                            Hapus\n                        "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.bulkDeleteMode,
-                            expression: "bulkDeleteMode"
-                          }
-                        ],
-                        staticClass: "btn btn-danger",
-                        attrs: { type: "button" },
-                        on: { click: _vm.bulkDestroy }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "align-middle c-icon cil-trash mr-1"
-                        }),
-                        _vm._v(
-                          "\n                            Hapus\n                        "
-                        )
-                      ]
-                    )
-                  ])
-                ])
+              _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
+                _vm._v("Prev")
+              ]),
+              _vm._v(" "),
+              _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
+                _vm._v("Next")
               ])
             ]
           )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "roleForm",
+            tabindex: "-1",
+            "aria-labelledby": "roleFormLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editMode,
+                        expression: "!editMode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "roleFormLabel" }
+                  },
+                  [_vm._v("Tambah Role Baru")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editMode,
+                        expression: "editMode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "roleFormLabel" }
+                  },
+                  [_vm._v("Ubah Role")]
+                ),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode ? _vm.updateRole() : _vm.storeRole()
+                    },
+                    keydown: function($event) {
+                      return _vm.form.onKeydown($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Nama role")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.name,
+                              expression: "form.name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: { "is-invalid": _vm.form.errors.has("name") },
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.form.name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.form, "name", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "name" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Guard name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.guard_name,
+                              expression: "form.guard_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("guard_name")
+                          },
+                          attrs: { type: "text", readonly: "" },
+                          domProps: { value: _vm.form.guard_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "guard_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "guard_name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "destroyRoleForm",
+            tabindex: "-1",
+            "aria-labelledby": "roleFormLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.bulkDeleteMode,
+                        expression: "!bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "roleFormLabel" }
+                  },
+                  [_vm._v("Hapus Role")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "h5",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.bulkDeleteMode,
+                        expression: "bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "roleFormLabel" }
+                  },
+                  [_vm._v("Hapus Masal")]
+                ),
+                _vm._v(" "),
+                _vm._m(2)
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.bulkDeleteMode,
+                        expression: "!bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.destroyRole }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "align-middle c-icon cil-trash mr-1"
+                    }),
+                    _vm._v(
+                      "\n                            Hapus\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.bulkDeleteMode,
+                        expression: "bulkDeleteMode"
+                      }
+                    ],
+                    staticClass: "btn btn-danger",
+                    attrs: { type: "button" },
+                    on: { click: _vm.bulkDestroy }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "align-middle c-icon cil-trash mr-1"
+                    }),
+                    _vm._v(
+                      "\n                            Hapus\n                        "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
         ]
       )
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {

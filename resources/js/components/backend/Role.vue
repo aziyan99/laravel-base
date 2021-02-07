@@ -1,7 +1,6 @@
 <template>
 <div>
-    <table-loading v-show="isLoading"></table-loading>
-    <div class="card" v-show="!isLoading">
+    <div class="card">
         <div class="card-body">
             <div class="text-right">
                 <button type="button" @click="showBulkDestroyRoleForm" class="btn btn-danger" v-if="deleteRoles.length > 0">
@@ -31,7 +30,8 @@
                     <input style="width: 300px;" v-model="keywords" />
                 </div>
             </div>
-            <div class="table-responsive">
+            <table-loading class="mt-3" v-show="isLoading"></table-loading>
+            <div class="table-responsive" v-show="!isLoading">
                 <table class="table table-hover table-bordered table-sm mt-3">
                     <thead>
                         <tr>
