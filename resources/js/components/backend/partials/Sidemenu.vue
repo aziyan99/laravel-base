@@ -24,10 +24,10 @@
                         </router-link>
                     </li>
                     <li class="c-sidebar-nav-item">
-                        <a class="c-sidebar-nav-link" href="javascript:;">
+                        <router-link class="c-sidebar-nav-link" :to="{name: 'permission'}">
                             <span class="c-sidebar-nav-icon"></span>
                             Permissions
-                        </a>
+                        </router-link>
                     </li>
                     <li class="c-sidebar-nav-item">
                         <a class="c-sidebar-nav-link" href="javascript:;">
