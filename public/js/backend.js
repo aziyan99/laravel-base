@@ -1864,6 +1864,349 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      form: new Form({
+        id: '',
+        name: '',
+        guard_name: 'web'
+      }),
+      editMode: false,
+      permissions: {},
+      keywords: null,
+      count: 5,
+      deletePermissions: [],
+      allSelect: false,
+      bulkDeleteMode: false,
+      isLoading: false
+    };
+  },
+  watch: {
+    keywords: function keywords(after, before) {
+      this.getPermissions();
+    },
+    count: function count(after, before) {
+      this.getPermissions();
+    }
+  },
+  methods: {
+    getPermissions: function getPermissions() {
+      var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.isLoading = true;
+      this.$Progress.start();
+      axios.get("".concat(RESTURIV1, "/permissions?page=").concat(page), {
+        params: {
+          keywords: this.keywords,
+          count: this.count
+        }
+      }).then(function (res) {
+        _this.isLoading = false;
+
+        _this.$Progress.finish();
+
+        _this.permissions = res.data;
+      })["catch"](function (err) {
+        _this.isLoading = true;
+
+        _this.$Progress.finish();
+      });
+    },
+    showCreatePermissionModal: function showCreatePermissionModal() {
+      this.editMode = false;
+      this.resetForm();
+      $('#permissionModal').modal('show');
+    },
+    storePermission: function storePermission() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.post("".concat(RESTURIV1, "/permissions")).then(function () {
+        _this2.$Progress.finish();
+
+        $('#permissionModal').modal('hide');
+
+        _this2.$toasted.success('Permission berhasil disimpan');
+
+        Fire.$emit('DataUpdated');
+      })["catch"](function (err) {
+        _this2.$Progress.finish();
+
+        _this2.$toasted.error(err);
+      });
+    },
+    showEditPermissionModal: function showEditPermissionModal(permission) {
+      this.editMode = true;
+      this.resetForm();
+      this.form.fill(permission);
+      $('#permissionModal').modal('show');
+    },
+    updatePermission: function updatePermission() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      this.form.put("".concat(RESTURIV1, "/permissions/").concat(this.form.id)).then(function () {
+        _this3.$Progress.finish();
+
+        $('#permissionModal').modal('hide');
+
+        _this3.$toasted.success('Permission berhasil diubah');
+
+        Fire.$emit('DataUpdated');
+      })["catch"](function (err) {
+        _this3.$Progress.finish();
+
+        _this3.$toasted.error(err);
+      });
+    },
+    showDestroyPermissionModal: function showDestroyPermissionModal(permission) {
+      this.bulkDeleteMode = false;
+      $('#destroyPermissionModal').modal('show');
+      this.form.fill(permission);
+    },
+    destroyPermission: function destroyPermission() {
+      var _this4 = this;
+
+      this.$Progress.finish();
+      axios["delete"]("".concat(RESTURIV1, "/permissions/").concat(this.form.id)).then(function () {
+        _this4.$Progress.finish();
+
+        _this4.resetForm();
+
+        $('#destroyPermissionModal').modal('hide');
+
+        _this4.$toasted.success('Permission berhasil dihapus');
+
+        Fire.$emit('DataUpdated');
+      })["catch"](function (err) {
+        _this4.$Progress.finish();
+
+        _this4.$toasted.success(err);
+      });
+    },
+    selectAll: function selectAll() {
+      var _this5 = this;
+
+      if (this.allSelect == false) {
+        this.allSelect = true;
+        this.permissions.data.forEach(function (permission) {
+          _this5.deletePermissions.push(permission.id);
+        });
+      } else {
+        this.allSelect = false;
+        this.deletePermissions = [];
+      }
+    },
+    showBulkDestroyPermissionModal: function showBulkDestroyPermissionModal() {
+      this.bulkDeleteMode = true;
+      $('#destroyPermissionModal').modal('show');
+    },
+    bulkDestroy: function bulkDestroy() {
+      var _this6 = this;
+
+      this.$Progress.start();
+      var data = {
+        'id': this.deletePermissions
+      };
+      axios.post("".concat(RESTURIV1, "/permissions/bulkdelete"), data).then(function (res) {
+        _this6.$Progress.finish();
+
+        Fire.$emit('DataUpdated');
+        $('#destroyPermissionModal').modal('hide');
+
+        _this6.$toasted.success('Permission berhasil dihapus');
+
+        _this6.deletePermissions = [];
+        _this6.allSelect = false;
+      })["catch"](function (err) {
+        _this6.$Progress.finish();
+
+        _this6.$toasted.error(err);
+      });
+    },
+    resetForm: function resetForm() {
+      this.form.reset();
+      this.form.clear();
+    }
+  },
+  mounted: function mounted() {
+    var data = {
+      title: "Permissions"
+    };
+    Fire.$emit('PageChange', data);
+  },
+  created: function created() {
+    var _this7 = this;
+
+    this.getPermissions();
+    Fire.$on('DataUpdated', function () {
+      _this7.getPermissions();
+    });
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Profile.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Profile.vue?vue&type=script&lang=js& ***!
@@ -2049,6 +2392,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -2063,7 +2409,8 @@ __webpack_require__.r(__webpack_exports__);
       count: 5,
       deleteRoles: [],
       allSelect: false,
-      bulkDeleteMode: false
+      bulkDeleteMode: false,
+      isLoading: false
     };
   },
   watch: {
@@ -2079,14 +2426,22 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.isLoading = true;
+      this.$Progress.start();
       axios.get("".concat(RESTURIV1, "/roles?page=").concat(page), {
         params: {
           keywords: this.keywords,
           count: this.count
         }
       }).then(function (res) {
+        _this.$Progress.finish();
+
+        _this.isLoading = false;
         _this.roles = res.data;
-      })["catch"](function (err) {//
+      })["catch"](function (err) {
+        _this.$Progress.finish();
+
+        _this.isLoading = true;
       });
     },
     showCreateRoleFrom: function showCreateRoleFrom() {
@@ -2097,13 +2452,18 @@ __webpack_require__.r(__webpack_exports__);
     storeRole: function storeRole() {
       var _this2 = this;
 
+      this.$Progress.start();
       this.form.post("".concat(RESTURIV1, "/roles")).then(function () {
+        _this2.$Progress.finish();
+
         $('#roleForm').modal('hide');
 
         _this2.$toasted.success('Role berhasil disimpan');
 
         Fire.$emit('DataUpdated');
       })["catch"](function (err) {
+        _this2.$Progress.finish();
+
         _this2.$toasted.error(err);
       });
     },
@@ -2116,13 +2476,18 @@ __webpack_require__.r(__webpack_exports__);
     updateRole: function updateRole() {
       var _this3 = this;
 
+      this.$Progress.start();
       this.form.put("".concat(RESTURIV1, "/roles/").concat(this.form.id)).then(function () {
+        _this3.$Progress.finish();
+
         $('#roleForm').modal('hide');
 
         _this3.$toasted.success('Role berhasil diubah');
 
         Fire.$emit('DataUpdated');
       })["catch"](function (err) {
+        _this3.$Progress.finish();
+
         _this3.$toasted.error(err);
       });
     },
@@ -2134,7 +2499,10 @@ __webpack_require__.r(__webpack_exports__);
     destroyRole: function destroyRole() {
       var _this4 = this;
 
+      this.$Progress.start();
       axios["delete"]("".concat(RESTURIV1, "/roles/").concat(this.form.id)).then(function () {
+        _this4.$Progress.finish();
+
         _this4.resetForm();
 
         $('#destroyRoleForm').modal('hide');
@@ -2143,6 +2511,8 @@ __webpack_require__.r(__webpack_exports__);
 
         Fire.$emit('DataUpdated');
       })["catch"](function (err) {
+        _this4.$Progress.finish();
+
         _this4.$toasted.success(err);
       });
     },
@@ -2166,10 +2536,13 @@ __webpack_require__.r(__webpack_exports__);
     bulkDestroy: function bulkDestroy() {
       var _this6 = this;
 
+      this.$Progress.start();
       var data = {
         'id': this.deleteRoles
       };
       axios.post("".concat(RESTURIV1, "/roles/bulkdelete"), data).then(function (res) {
+        _this6.$Progress.finish();
+
         Fire.$emit('DataUpdated');
         $('#destroyRoleForm').modal('hide');
 
@@ -2178,6 +2551,8 @@ __webpack_require__.r(__webpack_exports__);
         _this6.deleteRoles = [];
         _this6.allSelect = false;
       })["catch"](function (err) {
+        _this6.$Progress.finish();
+
         _this6.$toasted.error(err);
       });
     },
@@ -2328,6 +2703,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2438,13 +2814,17 @@ window.axios.defaults.withCredentials = true;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
 /* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
 /* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_content_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-content-loading */ "./node_modules/vue-content-loading/dist/vuecontentloading.js");
+/* harmony import */ var vue_content_loading__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_content_loading__WEBPACK_IMPORTED_MODULE_4__);
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
@@ -2457,21 +2837,38 @@ if (token) {
 
 
 
-window.Fire = new vue__WEBPACK_IMPORTED_MODULE_3__.default();
+
+
+window.Fire = new vue__WEBPACK_IMPORTED_MODULE_5__.default();
 window.Form = vform__WEBPACK_IMPORTED_MODULE_0__.Form;
 window.RESTURIV1 = '/api/v1';
 var toastedOptions = {
   position: "top-center",
   duration: 3000
 };
-vue__WEBPACK_IMPORTED_MODULE_3__.default.use((vue_toasted__WEBPACK_IMPORTED_MODULE_1___default()), toastedOptions);
-vue__WEBPACK_IMPORTED_MODULE_3__.default.filter('formatDate', function (createdAt) {
+vue__WEBPACK_IMPORTED_MODULE_5__.default.use((vue_toasted__WEBPACK_IMPORTED_MODULE_1___default()), toastedOptions);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.use((vue_progressbar__WEBPACK_IMPORTED_MODULE_3___default()), {
+  color: '#3D53C6',
+  failedColor: '#874b4b',
+  thickness: '5px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false
+});
+vue__WEBPACK_IMPORTED_MODULE_5__.default.filter('formatDate', function (createdAt) {
   moment__WEBPACK_IMPORTED_MODULE_2___default().locale('id');
   return moment__WEBPACK_IMPORTED_MODULE_2___default()(createdAt).format('dddd');
 });
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component(vform__WEBPACK_IMPORTED_MODULE_0__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_0__.HasError);
-vue__WEBPACK_IMPORTED_MODULE_3__.default.component(vform__WEBPACK_IMPORTED_MODULE_0__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_0__.AlertError);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component(vform__WEBPACK_IMPORTED_MODULE_0__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_0__.HasError);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component(vform__WEBPACK_IMPORTED_MODULE_0__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_0__.AlertError);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('table-loading', vue_content_loading__WEBPACK_IMPORTED_MODULE_4__.VclTable);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('facebook-loading', vue_content_loading__WEBPACK_IMPORTED_MODULE_4__.VclFacebook);
 
 /***/ }),
 
@@ -2491,9 +2888,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_backend_Dashboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../components/backend/Dashboard */ "./resources/js/components/backend/Dashboard.vue");
 /* harmony import */ var _components_backend_Profile__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../components/backend/Profile */ "./resources/js/components/backend/Profile.vue");
 /* harmony import */ var _components_backend_Role__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../components/backend/Role */ "./resources/js/components/backend/Role.vue");
+/* harmony import */ var _components_backend_Permission__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../components/backend/Permission */ "./resources/js/components/backend/Permission.vue");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_1__.default);
+
 
 
 
@@ -2504,12 +2903,19 @@ var routes = [{
   meta: {
     title: 'Dashbor | Admin area'
   }
-},, {
+}, {
   name: 'role',
   path: '/backoffice/role',
   component: _components_backend_Role__WEBPACK_IMPORTED_MODULE_4__.default,
   meta: {
     title: 'Role | Admin area'
+  }
+}, {
+  name: 'permission',
+  path: '/backoffice/permission',
+  component: _components_backend_Permission__WEBPACK_IMPORTED_MODULE_5__.default,
+  meta: {
+    title: 'Permission | Admin area'
   }
 }, {
   name: 'profile',
@@ -56445,6 +56851,17 @@ AlertSuccess_component.options.__file = "AlertSuccess.vue"
 
 /***/ }),
 
+/***/ "./node_modules/vue-content-loading/dist/vuecontentloading.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-content-loading/dist/vuecontentloading.js ***!
+  \********************************************************************/
+/***/ (function(module) {
+
+!function(t,e){ true?module.exports=e():0}("undefined"!=typeof self?self:this,function(){return function(t){function e(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return t[n].call(i.exports,i,i.exports,e),i.l=!0,i.exports}var r={};return e.m=t,e.c=r,e.d=function(t,r,n){e.o(t,r)||Object.defineProperty(t,r,{configurable:!1,enumerable:!0,get:n})},e.n=function(t){var r=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(r,"a",r),r},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=11)}([function(t,e){t.exports=function(t,e,r,n,i,a){var s,o=t=t||{},u=typeof t.default;"object"!==u&&"function"!==u||(s=t,o=t.default);var c="function"==typeof o?o.options:o;e&&(c.render=e.render,c.staticRenderFns=e.staticRenderFns,c._compiled=!0),r&&(c.functional=!0),i&&(c._scopeId=i);var d;if(a?(d=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),n&&n.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(a)},c._ssrRegister=d):n&&(d=n),d){var h=c.functional,l=h?c.render:c.beforeCreate;h?(c._injectStyles=d,c.render=function(t,e){return d.call(e),l(t,e)}):c.beforeCreate=l?[].concat(l,d):[d]}return{esModule:s,exports:o,options:c}}},function(t,e,r){"use strict";var n=r(2),i=r(12),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(t){return/^#([A-Fa-f0-9]{3}|[A-Fa-f0-9]{6})$/.test(t)};e.a={name:"VueContentLoading",props:{rtl:{default:!1,type:Boolean},speed:{default:2,type:Number},width:{default:400,type:Number},height:{default:130,type:Number},primary:{type:String,default:"#f0f0f0",validator:n},secondary:{type:String,default:"#e0e0e0",validator:n}},computed:{viewbox:function(){return"0 0 "+this.width+" "+this.height},formatedSpeed:function(){return this.speed+"s"},gradientId:function(){return"gradient-"+this._uid},clipPathId:function(){return"clipPath-"+this._uid},svg:function(){if(this.rtl)return{transform:"rotateY(180deg)"}},rect:function(){return{style:{fill:"url(#"+this.gradientId+")"},clipPath:"url(#"+this.clipPathId+")"}}}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a},props:{rows:{default:5,type:Number}},computed:{height:function(){return 21*this.rows}},methods:{getYPos:function(t,e){return e+22*(t-1)}}}},function(t,e,r){"use strict";var n=r(1);e.a={components:{VueContentLoading:n.a},props:{header:{default:!0,type:Boolean},rows:{default:5,type:Number},columns:{default:4,type:Number}},computed:{height:function(){return 30*this.rows-20},width:function(){return 20*(this.columns-1)+10+100*this.columns}},methods:{getXPos:function(t){return 5+100*(t-1)+20*(t-1)},getYPos:function(t){return 30*(t-1)}}}},,function(t,e,r){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=r(1),i=r(13),a=r(15),s=r(17),o=r(19),u=r(21),c=r(23),d=r(25);r.d(e,"VclCode",function(){return i.a}),r.d(e,"VclList",function(){return a.a}),r.d(e,"VclTwitch",function(){return s.a}),r.d(e,"VclFacebook",function(){return o.a}),r.d(e,"VclInstagram",function(){return u.a}),r.d(e,"VclBulletList",function(){return c.a}),r.d(e,"VclTable",function(){return d.a}),r.d(e,"VueContentLoading",function(){return n.a}),e.default=n.a},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("svg",{style:t.svg,attrs:{viewBox:t.viewbox,preserveAspectRatio:"xMidYMid meet"}},[r("rect",{style:t.rect.style,attrs:{"clip-path":t.rect.clipPath,x:"0",y:"0",width:t.width,height:t.height}}),t._v(" "),r("defs",[r("clipPath",{attrs:{id:t.clipPathId}},[t._t("default",[r("rect",{attrs:{x:"0",y:"0",rx:"5",ry:"5",width:"70",height:"70"}}),t._v(" "),r("rect",{attrs:{x:"80",y:"17",rx:"4",ry:"4",width:"300",height:"13"}}),t._v(" "),r("rect",{attrs:{x:"80",y:"40",rx:"3",ry:"3",width:"250",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"80",rx:"3",ry:"3",width:"350",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"100",rx:"3",ry:"3",width:"400",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"120",rx:"3",ry:"3",width:"360",height:"10"}})])],2),t._v(" "),r("linearGradient",{attrs:{id:t.gradientId}},[r("stop",{attrs:{offset:"0%","stop-color":t.primary}},[r("animate",{attrs:{attributeName:"offset",values:"-2; 1",dur:t.formatedSpeed,repeatCount:"indefinite"}})]),t._v(" "),r("stop",{attrs:{offset:"50%","stop-color":t.secondary}},[r("animate",{attrs:{attributeName:"offset",values:"-1.5; 1.5",dur:t.formatedSpeed,repeatCount:"indefinite"}})]),t._v(" "),r("stop",{attrs:{offset:"100%","stop-color":t.primary}},[r("animate",{attrs:{attributeName:"offset",values:"-1; 2",dur:t.formatedSpeed,repeatCount:"indefinite"}})])],1)],1)])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(3),i=r(14),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{width:300,height:80}},"vue-content-loading",t.$attrs,!1),[r("rect",{attrs:{x:"0",y:"0",rx:"3",ry:"3",width:"70",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"80",y:"0",rx:"3",ry:"3",width:"100",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"190",y:"0",rx:"3",ry:"3",width:"10",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"15",y:"20",rx:"3",ry:"3",width:"130",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"155",y:"20",rx:"3",ry:"3",width:"130",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"15",y:"40",rx:"3",ry:"3",width:"90",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"115",y:"40",rx:"3",ry:"3",width:"60",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"185",y:"40",rx:"3",ry:"3",width:"60",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"60",rx:"3",ry:"3",width:"30",height:"10"}})])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(4),i=r(16),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{width:300,height:120}},"vue-content-loading",t.$attrs,!1),[r("rect",{attrs:{x:"0",y:"0",rx:"3",ry:"3",width:"250",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"20",y:"20",rx:"3",ry:"3",width:"220",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"20",y:"40",rx:"3",ry:"3",width:"170",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"60",rx:"3",ry:"3",width:"250",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"20",y:"80",rx:"3",ry:"3",width:"200",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"20",y:"100",rx:"3",ry:"3",width:"80",height:"10"}})])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(5),i=r(18),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{width:300,height:225}},"vue-content-loading",t.$attrs,!1),[r("rect",{attrs:{x:"0",y:"0",rx:"3",ry:"3",width:"300",height:"170"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"180",rx:"2",ry:"2",width:"35",height:"45"}}),t._v(" "),r("rect",{attrs:{x:"45",y:"180",rx:"2",ry:"2",width:"150",height:"15"}}),t._v(" "),r("rect",{attrs:{x:"45",y:"203",rx:"2",ry:"2",width:"100",height:"10"}})])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(6),i=r(20),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({},"vue-content-loading",t.$attrs,!1),[r("rect",{attrs:{x:"0",y:"0",rx:"5",ry:"5",width:"70",height:"70"}}),t._v(" "),r("rect",{attrs:{x:"80",y:"17",rx:"4",ry:"4",width:"300",height:"13"}}),t._v(" "),r("rect",{attrs:{x:"80",y:"40",rx:"3",ry:"3",width:"250",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"80",rx:"3",ry:"3",width:"350",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"100",rx:"3",ry:"3",width:"400",height:"10"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"120",rx:"3",ry:"3",width:"360",height:"10"}})])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(7),i=r(22),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{height:480}},"vue-content-loading",t.$attrs,!1),[r("circle",{attrs:{cx:"30",cy:"30",r:"30"}}),t._v(" "),r("rect",{attrs:{x:"75",y:"13",rx:"4",ry:"4",width:"100",height:"13"}}),t._v(" "),r("rect",{attrs:{x:"75",y:"37",rx:"4",ry:"4",width:"50",height:"8"}}),t._v(" "),r("rect",{attrs:{x:"0",y:"70",rx:"5",ry:"5",width:"400",height:"400"}})])},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(8),i=r(24),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{width:230,height:t.height}},"vue-content-loading",t.$attrs,!1),[t._l(t.rows,function(e){return[r("circle",{key:e+"_c",attrs:{cx:"8",cy:t.getYPos(e,8),r:"8"}}),t._v(" "),r("rect",{key:e+"_r",attrs:{x:"22",y:t.getYPos(e,3),rx:"3",ry:"3",width:"200",height:"9"}})]})],2)},i=[],a={render:n,staticRenderFns:i};e.a=a},function(t,e,r){"use strict";var n=r(9),i=r(26),a=r(0),s=a(n.a,i.a,!1,null,null,null);e.a=s.exports},function(t,e,r){"use strict";var n=function(){var t=this,e=t.$createElement,r=t._self._c||e;return r("vue-content-loading",t._b({attrs:{width:t.width,height:t.height}},"vue-content-loading",t.$attrs,!1),[t._l(t.rows,function(e){return[t._l(t.columns,function(n){return[r("rect",{key:e+"_"+n,attrs:{x:t.getXPos(n),y:t.getYPos(e),rx:"3",ry:"3",width:100,height:"10"}})]}),t._v(" "),e<t.rows?r("rect",{key:e+"_l",attrs:{x:"0",y:t.getYPos(e)+20,width:t.width,height:"1"}}):t._e()]})],2)},i=[],a={render:n,staticRenderFns:i};e.a=a}])});
+//# sourceMappingURL=vuecontentloading.js.map
+
+/***/ }),
+
 /***/ "./resources/js/components/backend/Dashboard.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/backend/Dashboard.vue ***!
@@ -56480,6 +56897,45 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/backend/Dashboard.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/backend/Permission.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/backend/Permission.vue ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Permission.vue?vue&type=template&id=702450d5& */ "./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5&");
+/* harmony import */ var _Permission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Permission.vue?vue&type=script&lang=js& */ "./resources/js/components/backend/Permission.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Permission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/backend/Permission.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -56730,6 +57186,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/backend/Permission.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/backend/Permission.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Permission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Permission.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Permission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/backend/Profile.vue?vue&type=script&lang=js&":
 /*!******************************************************************************!*\
   !*** ./resources/js/components/backend/Profile.vue?vue&type=script&lang=js& ***!
@@ -56807,6 +57279,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_template_id_1673257e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Dashboard_vue_vue_type_template_id_1673257e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Dashboard.vue?vue&type=template&id=1673257e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Dashboard.vue?vue&type=template&id=1673257e&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5& ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Permission_vue_vue_type_template_id_702450d5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Permission.vue?vue&type=template&id=702450d5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5&");
 
 
 /***/ }),
@@ -56945,6 +57434,753 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Permission.vue?vue&type=template&id=702450d5& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("table-loading", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isLoading,
+            expression: "isLoading"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.isLoading,
+              expression: "!isLoading"
+            }
+          ],
+          staticClass: "card"
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("div", { staticClass: "text-right" }, [
+                _vm.deletePermissions.length > 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.showBulkDestroyPermissionModal }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "c-icon cil-trash align-middle mr-2"
+                        }),
+                        _vm._v("Hapus yang dipilih\n                ")
+                      ]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", disabled: "" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "c-icon cil-trash align-middle mr-2"
+                        }),
+                        _vm._v("Hapus yang dipilih\n                ")
+                      ]
+                    ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.showCreatePermissionModal }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                    }),
+                    _vm._v(
+                      "\n                    Tambah Permission\n                "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.count,
+                          expression: "count"
+                        }
+                      ],
+                      staticStyle: { width: "40px" },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.count = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "999999999" } }, [
+                        _vm._v("all")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-lg-6 text-right" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.keywords,
+                        expression: "keywords"
+                      }
+                    ],
+                    staticStyle: { width: "300px" },
+                    domProps: { value: _vm.keywords },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.keywords = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-hover table-bordered table-sm mt-3"
+                  },
+                  [
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.allSelect,
+                                expression: "allSelect"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.allSelect)
+                                ? _vm._i(_vm.allSelect, null) > -1
+                                : _vm.allSelect
+                            },
+                            on: {
+                              click: _vm.selectAll,
+                              change: function($event) {
+                                var $$a = _vm.allSelect,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.allSelect = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.allSelect = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.allSelect = $$c
+                                }
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Nama")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Guard name")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tanggal ditambahkan")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Aksi")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.permissions.data, function(permission) {
+                        return _c("tr", { key: permission.id }, [
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.deletePermissions,
+                                  expression: "deletePermissions"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                value: "" + permission.id,
+                                checked: Array.isArray(_vm.deletePermissions)
+                                  ? _vm._i(
+                                      _vm.deletePermissions,
+                                      "" + permission.id
+                                    ) > -1
+                                  : _vm.deletePermissions
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.deletePermissions,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "" + permission.id,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.deletePermissions = $$a.concat([
+                                          $$v
+                                        ]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.deletePermissions = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.deletePermissions = $$c
+                                  }
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(permission.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(permission.guard_name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(
+                                _vm._f("formatDate")(permission.created_at)
+                              )
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showEditPermissionModal(
+                                      permission
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "c-icon cil-pencil mr-1 align-middle"
+                                }),
+                                _vm._v(
+                                  "\n                                    edit\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showDestroyPermissionModal(
+                                      permission
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "c-icon cil-trash mr-1 align-middle"
+                                }),
+                                _vm._v(
+                                  "\n                                    hapus\n                                "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "pagination",
+                {
+                  attrs: { align: "right", data: _vm.permissions },
+                  on: { "pagination-change-page": _vm.getPermissions }
+                },
+                [
+                  _c(
+                    "span",
+                    { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                    [_vm._v("Prev")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                    [_vm._v("Next")]
+                  )
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "permissionModal",
+                tabindex: "-1",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "modal-title"
+                      },
+                      [_vm._v("Tambah Permission Baru")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "modal-title"
+                      },
+                      [_vm._v("Ubah Permission")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editMode
+                            ? _vm.updatePermission()
+                            : _vm.storePermission()
+                        },
+                        keydown: function($event) {
+                          return _vm.form.onKeydown($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Nama permission")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.name,
+                                  expression: "form.name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("name")
+                              },
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.form.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "name" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Guard name")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.guard_name,
+                                  expression: "form.guard_name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("guard_name")
+                              },
+                              attrs: { type: "text", readonly: "" },
+                              domProps: { value: _vm.form.guard_name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "guard_name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "guard_name" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ]
+                  )
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "destroyPermissionModal",
+                tabindex: "-1",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.bulkDeleteMode,
+                            expression: "!bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "modal-title"
+                      },
+                      [_vm._v("Hapus Permission")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.bulkDeleteMode,
+                            expression: "bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "modal-title"
+                      },
+                      [_vm._v("Hapus Masal")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.bulkDeleteMode,
+                            expression: "!bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.destroyPermission }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "align-middle c-icon cil-trash mr-1"
+                        }),
+                        _vm._v(
+                          "\n                            Hapus\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.bulkDeleteMode,
+                            expression: "bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.bulkDestroy }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "align-middle c-icon cil-trash mr-1"
+                        }),
+                        _vm._v(
+                          "\n                            Hapus\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [
+          _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
+          _vm._v(
+            "\n                                Batal\n                            "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [
+          _c("i", { staticClass: "align-middle c-icon cil-save mr-1" }),
+          _vm._v(
+            "\n                                Simpan\n                            "
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-body" }, [
+      _c("div", { staticClass: "alert alert-danger" }, [
+        _vm._v(
+          "\n                            Hapus Permission ini?. Pengguna dengan permission ini mungkin tidak akan memiliki akses lagi keresource.\n                        "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-secondary",
+        attrs: { type: "button", "data-dismiss": "modal" }
+      },
+      [
+        _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
+        _vm._v("\n                            Batal\n                        ")
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Profile.vue?vue&type=template&id=ced8c2da&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/backend/Profile.vue?vue&type=template&id=ced8c2da& ***!
@@ -56993,572 +58229,628 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
-    _c(
-      "div",
-      { staticClass: "card-body" },
-      [
-        _c("div", { staticClass: "text-right" }, [
-          _vm.deleteRoles.length > 0
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button" },
-                  on: { click: _vm.showBulkDestroyRoleForm }
-                },
-                [
-                  _c("i", {
-                    staticClass: "c-icon cil-trash align-middle mr-2"
-                  }),
-                  _vm._v("Hapus yang dipilih\n            ")
-                ]
-              )
-            : _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button", disabled: "" }
-                },
-                [
-                  _c("i", {
-                    staticClass: "c-icon cil-trash align-middle mr-2"
-                  }),
-                  _vm._v("Hapus yang dipilih\n            ")
-                ]
-              ),
-          _vm._v(" "),
-          _c(
-            "button",
+  return _c(
+    "div",
+    [
+      _c("table-loading", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isLoading,
+            expression: "isLoading"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
             {
-              staticClass: "btn btn-primary",
-              on: { click: _vm.showCreateRoleFrom }
-            },
-            [
-              _c("i", { staticClass: "c-icon mr-2 cil-plus align-middle" }),
-              _vm._v("\n                Tambah Role\n            ")
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row mt-3" }, [
-          _c("div", { staticClass: "col-lg-6" }, [
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.count,
-                    expression: "count"
-                  }
-                ],
-                staticStyle: { width: "40px" },
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.count = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
-                _vm._v(" "),
-                _c("option", { attrs: { value: "999999999" } }, [_vm._v("all")])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-lg-6 text-right" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.keywords,
-                  expression: "keywords"
-                }
-              ],
-              staticStyle: { width: "300px" },
-              domProps: { value: _vm.keywords },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.keywords = $event.target.value
-                }
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "table-responsive" }, [
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.isLoading,
+              expression: "!isLoading"
+            }
+          ],
+          staticClass: "card"
+        },
+        [
           _c(
-            "table",
-            { staticClass: "table table-hover table-bordered table-sm mt-3" },
+            "div",
+            { staticClass: "card-body" },
             [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [
-                    _c("input", {
+              _c("div", { staticClass: "text-right" }, [
+                _vm.deleteRoles.length > 0
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.showBulkDestroyRoleForm }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "c-icon cil-trash align-middle mr-2"
+                        }),
+                        _vm._v("Hapus yang dipilih\n                ")
+                      ]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button", disabled: "" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "c-icon cil-trash align-middle mr-2"
+                        }),
+                        _vm._v("Hapus yang dipilih\n                ")
+                      ]
+                    ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.showCreateRoleFrom }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                    }),
+                    _vm._v(
+                      "\n                    Tambah Role\n                "
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-3" }, [
+                _c("div", { staticClass: "col-lg-6" }, [
+                  _c(
+                    "select",
+                    {
                       directives: [
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.allSelect,
-                          expression: "allSelect"
+                          value: _vm.count,
+                          expression: "count"
                         }
                       ],
-                      attrs: { type: "checkbox" },
-                      domProps: {
-                        checked: Array.isArray(_vm.allSelect)
-                          ? _vm._i(_vm.allSelect, null) > -1
-                          : _vm.allSelect
-                      },
+                      staticStyle: { width: "40px" },
                       on: {
-                        click: _vm.selectAll,
                         change: function($event) {
-                          var $$a = _vm.allSelect,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = null,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 && (_vm.allSelect = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.allSelect = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.allSelect = $$c
-                          }
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.count = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
                         }
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Nama")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Guard name")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Tanggal ditambahkan")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Aksi")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.roles.data, function(role) {
-                  return _c("tr", { key: role.id }, [
-                    _c("td", [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.deleteRoles,
-                            expression: "deleteRoles"
-                          }
-                        ],
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          value: "" + role.id,
-                          checked: Array.isArray(_vm.deleteRoles)
-                            ? _vm._i(_vm.deleteRoles, "" + role.id) > -1
-                            : _vm.deleteRoles
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$a = _vm.deleteRoles,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "" + role.id,
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 && (_vm.deleteRoles = $$a.concat([$$v]))
-                              } else {
-                                $$i > -1 &&
-                                  (_vm.deleteRoles = $$a
-                                    .slice(0, $$i)
-                                    .concat($$a.slice($$i + 1)))
-                              }
-                            } else {
-                              _vm.deleteRoles = $$c
-                            }
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(role.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(role.guard_name))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm._f("formatDate")(role.created_at)))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-warning btn-sm",
-                          on: {
-                            click: function($event) {
-                              return _vm.showEditRoleForm(role)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "c-icon cil-pencil mr-1 align-middle"
-                          }),
-                          _vm._v(
-                            "\n                                edit\n                            "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-danger btn-sm",
-                          on: {
-                            click: function($event) {
-                              return _vm.showDestroyRoleForm(role)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "c-icon cil-trash mr-1 align-middle"
-                          }),
-                          _vm._v(
-                            "\n                                hapus\n                            "
-                          )
-                        ]
-                      )
-                    ])
-                  ])
-                }),
-                0
-              )
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "pagination",
-          {
-            attrs: { align: "right", data: _vm.roles },
-            on: { "pagination-change-page": _vm.getRoles }
-          },
-          [
-            _c("span", { attrs: { slot: "prev-nav" }, slot: "prev-nav" }, [
-              _vm._v("Prev")
-            ]),
-            _vm._v(" "),
-            _c("span", { attrs: { slot: "next-nav" }, slot: "next-nav" }, [
-              _vm._v("Next")
-            ])
-          ]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "roleForm",
-          tabindex: "-1",
-          "aria-labelledby": "roleFormLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c(
-                "h5",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.editMode,
-                      expression: "!editMode"
-                    }
-                  ],
-                  staticClass: "modal-title",
-                  attrs: { id: "roleFormLabel" }
-                },
-                [_vm._v("Tambah Role Baru")]
-              ),
-              _vm._v(" "),
-              _c(
-                "h5",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.editMode,
-                      expression: "editMode"
-                    }
-                  ],
-                  staticClass: "modal-title",
-                  attrs: { id: "roleFormLabel" }
-                },
-                [_vm._v("Ubah Role")]
-              ),
-              _vm._v(" "),
-              _vm._m(0)
-            ]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    _vm.editMode ? _vm.updateRole() : _vm.storeRole()
-                  },
-                  keydown: function($event) {
-                    return _vm.form.onKeydown($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "modal-body" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
+                    },
                     [
-                      _c("label", [_vm._v("Nama role")]),
+                      _c("option", { attrs: { value: "5" } }, [_vm._v("5")]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.name,
-                            expression: "form.name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: { "is-invalid": _vm.form.errors.has("name") },
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.form.name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "name", $event.target.value)
-                          }
-                        }
-                      }),
+                      _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
                       _vm._v(" "),
-                      _c("has-error", {
-                        attrs: { form: _vm.form, field: "name" }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("label", [_vm._v("Guard name")]),
+                      _c("option", { attrs: { value: "20" } }, [_vm._v("20")]),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.form.guard_name,
-                            expression: "form.guard_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid": _vm.form.errors.has("guard_name")
-                        },
-                        attrs: { type: "text", readonly: "" },
-                        domProps: { value: _vm.form.guard_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.form,
-                              "guard_name",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      }),
+                      _c("option", { attrs: { value: "30" } }, [_vm._v("30")]),
                       _vm._v(" "),
-                      _c("has-error", {
-                        attrs: { form: _vm.form, field: "guard_name" }
-                      })
-                    ],
-                    1
+                      _c("option", { attrs: { value: "40" } }, [_vm._v("40")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "999999999" } }, [
+                        _vm._v("all")
+                      ])
+                    ]
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
-              ]
-            )
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "destroyRoleForm",
-          tabindex: "-1",
-          "aria-labelledby": "roleFormLabel",
-          "aria-hidden": "true"
-        }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c(
-                "h5",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.bulkDeleteMode,
-                      expression: "!bulkDeleteMode"
+                _c("div", { staticClass: "col-lg-6 text-right" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.keywords,
+                        expression: "keywords"
+                      }
+                    ],
+                    staticStyle: { width: "300px" },
+                    domProps: { value: _vm.keywords },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.keywords = $event.target.value
+                      }
                     }
-                  ],
-                  staticClass: "modal-title",
-                  attrs: { id: "roleFormLabel" }
-                },
-                [_vm._v("Hapus Role")]
-              ),
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "table-responsive" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass:
+                      "table table-hover table-bordered table-sm mt-3"
+                  },
+                  [
+                    _c("thead", [
+                      _c("tr", [
+                        _c("th", [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.allSelect,
+                                expression: "allSelect"
+                              }
+                            ],
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: Array.isArray(_vm.allSelect)
+                                ? _vm._i(_vm.allSelect, null) > -1
+                                : _vm.allSelect
+                            },
+                            on: {
+                              click: _vm.selectAll,
+                              change: function($event) {
+                                var $$a = _vm.allSelect,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.allSelect = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.allSelect = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.allSelect = $$c
+                                }
+                              }
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Nama")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Guard name")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Tanggal ditambahkan")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Aksi")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.roles.data, function(role) {
+                        return _c("tr", { key: role.id }, [
+                          _c("td", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.deleteRoles,
+                                  expression: "deleteRoles"
+                                }
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                value: "" + role.id,
+                                checked: Array.isArray(_vm.deleteRoles)
+                                  ? _vm._i(_vm.deleteRoles, "" + role.id) > -1
+                                  : _vm.deleteRoles
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.deleteRoles,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "" + role.id,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.deleteRoles = $$a.concat([$$v]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.deleteRoles = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.deleteRoles = $$c
+                                  }
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(role.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(role.guard_name))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(
+                              _vm._s(_vm._f("formatDate")(role.created_at))
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-warning btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showEditRoleForm(role)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "c-icon cil-pencil mr-1 align-middle"
+                                }),
+                                _vm._v(
+                                  "\n                                    edit\n                                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-danger btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.showDestroyRoleForm(role)
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass:
+                                    "c-icon cil-trash mr-1 align-middle"
+                                }),
+                                _vm._v(
+                                  "\n                                    hapus\n                                "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
               _vm._v(" "),
               _c(
-                "h5",
+                "pagination",
                 {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.bulkDeleteMode,
-                      expression: "bulkDeleteMode"
-                    }
-                  ],
-                  staticClass: "modal-title",
-                  attrs: { id: "roleFormLabel" }
-                },
-                [_vm._v("Hapus Masal")]
-              ),
-              _vm._v(" "),
-              _vm._m(2)
-            ]),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: !_vm.bulkDeleteMode,
-                      expression: "!bulkDeleteMode"
-                    }
-                  ],
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button" },
-                  on: { click: _vm.destroyRole }
+                  attrs: { align: "right", data: _vm.roles },
+                  on: { "pagination-change-page": _vm.getRoles }
                 },
                 [
-                  _c("i", {
-                    staticClass: "align-middle c-icon cil-trash mr-1"
-                  }),
-                  _vm._v(
-                    "\n                        Hapus\n                    "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.bulkDeleteMode,
-                      expression: "bulkDeleteMode"
-                    }
-                  ],
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button" },
-                  on: { click: _vm.bulkDestroy }
-                },
-                [
-                  _c("i", {
-                    staticClass: "align-middle c-icon cil-trash mr-1"
-                  }),
-                  _vm._v(
-                    "\n                        Hapus\n                    "
+                  _c(
+                    "span",
+                    { attrs: { slot: "prev-nav" }, slot: "prev-nav" },
+                    [_vm._v("Prev")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { attrs: { slot: "next-nav" }, slot: "next-nav" },
+                    [_vm._v("Next")]
                   )
                 ]
               )
-            ])
-          ])
-        ])
-      ]
-    )
-  ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "roleForm",
+                tabindex: "-1",
+                "aria-labelledby": "roleFormLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "modal-title",
+                        attrs: { id: "roleFormLabel" }
+                      },
+                      [_vm._v("Tambah Role Baru")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "modal-title",
+                        attrs: { id: "roleFormLabel" }
+                      },
+                      [_vm._v("Ubah Role")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          _vm.editMode ? _vm.updateRole() : _vm.storeRole()
+                        },
+                        keydown: function($event) {
+                          return _vm.form.onKeydown($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "modal-body" }, [
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Nama role")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.name,
+                                  expression: "form.name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("name")
+                              },
+                              attrs: { type: "text" },
+                              domProps: { value: _vm.form.name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "name" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "form-group" },
+                          [
+                            _c("label", [_vm._v("Guard name")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.form.guard_name,
+                                  expression: "form.guard_name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              class: {
+                                "is-invalid": _vm.form.errors.has("guard_name")
+                              },
+                              attrs: { type: "text", readonly: "" },
+                              domProps: { value: _vm.form.guard_name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "guard_name",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("has-error", {
+                              attrs: { form: _vm.form, field: "guard_name" }
+                            })
+                          ],
+                          1
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1)
+                    ]
+                  )
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "destroyRoleForm",
+                tabindex: "-1",
+                "aria-labelledby": "roleFormLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-dialog" }, [
+                _c("div", { staticClass: "modal-content" }, [
+                  _c("div", { staticClass: "modal-header" }, [
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.bulkDeleteMode,
+                            expression: "!bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "modal-title",
+                        attrs: { id: "roleFormLabel" }
+                      },
+                      [_vm._v("Hapus Role")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "h5",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.bulkDeleteMode,
+                            expression: "bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "modal-title",
+                        attrs: { id: "roleFormLabel" }
+                      },
+                      [_vm._v("Hapus Masal")]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.bulkDeleteMode,
+                            expression: "!bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.destroyRole }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "align-middle c-icon cil-trash mr-1"
+                        }),
+                        _vm._v(
+                          "\n                            Hapus\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.bulkDeleteMode,
+                            expression: "bulkDeleteMode"
+                          }
+                        ],
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "button" },
+                        on: { click: _vm.bulkDestroy }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "align-middle c-icon cil-trash mr-1"
+                        }),
+                        _vm._v(
+                          "\n                            Hapus\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              ])
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -57592,7 +58884,7 @@ var staticRenderFns = [
         [
           _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
           _vm._v(
-            "\n                            Batal\n                        "
+            "\n                                Batal\n                            "
           )
         ]
       ),
@@ -57603,7 +58895,7 @@ var staticRenderFns = [
         [
           _c("i", { staticClass: "align-middle c-icon cil-save mr-1" }),
           _vm._v(
-            "\n                            Simpan\n                        "
+            "\n                                Simpan\n                            "
           )
         ]
       )
@@ -57633,7 +58925,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "modal-body" }, [
       _c("div", { staticClass: "alert alert-danger" }, [
         _vm._v(
-          "\n                        Hapus Role ini?. Pengguna dengan role ini mungkin tidak akan memiliki akses lagi kesistem.\n                    "
+          "\n                            Hapus Role ini?. Pengguna dengan role ini mungkin tidak akan memiliki akses lagi kesistem.\n                        "
         )
       ])
     ])
@@ -57650,7 +58942,7 @@ var staticRenderFns = [
       },
       [
         _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
-        _vm._v("\n                        Batal\n                    ")
+        _vm._v("\n                            Batal\n                        ")
       ]
     )
   }
@@ -57779,9 +59071,28 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm._m(2),
+            _c(
+              "li",
+              { staticClass: "c-sidebar-nav-item" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "c-sidebar-nav-link",
+                    attrs: { to: { name: "permission" } }
+                  },
+                  [
+                    _c("span", { staticClass: "c-sidebar-nav-icon" }),
+                    _vm._v(
+                      "\n                            Permissions\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
-            _vm._m(3)
+            _vm._m(2)
           ])
         ]),
         _vm._v(" "),
@@ -57831,23 +59142,6 @@ var staticRenderFns = [
         _vm._v("\n                    Hak Akses & Keamanan\n                ")
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "c-sidebar-nav-item" }, [
-      _c(
-        "a",
-        { staticClass: "c-sidebar-nav-link", attrs: { href: "javascript:;" } },
-        [
-          _c("span", { staticClass: "c-sidebar-nav-icon" }),
-          _vm._v(
-            "\n                            Permissions\n                        "
-          )
-        ]
-      )
-    ])
   },
   function() {
     var _vm = this
@@ -58122,7 +59416,12 @@ var render = function() {
             [
               _c("main", { staticClass: "c-main" }, [
                 _c("div", { staticClass: "container-fluid" }, [
-                  _c("div", { staticClass: "fade-in" }, [_c("router-view")], 1)
+                  _c(
+                    "div",
+                    { staticClass: "fade-in" },
+                    [_c("router-view"), _vm._v(" "), _c("vue-progress-bar")],
+                    1
+                  )
                 ])
               ]),
               _vm._v(" "),
@@ -58253,6 +59552,17 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-progressbar/dist/vue-progressbar.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-progressbar/dist/vue-progressbar.js ***!
+  \**************************************************************/
+/***/ (function(module) {
+
+!function(t,o){ true?module.exports=o():0}(this,function(){"use strict";!function(){if("undefined"!=typeof document){var t=document.head||document.getElementsByTagName("head")[0],o=document.createElement("style"),i=" .__cov-progress { opacity: 1; z-index: 999999; } ";o.type="text/css",o.styleSheet?o.styleSheet.cssText=i:o.appendChild(document.createTextNode(i)),t.appendChild(o)}}();var t="undefined"!=typeof window,r={render:function(){var t=this,o=t.$createElement;return(t._self._c||o)("div",{staticClass:"__cov-progress",style:t.style})},staticRenderFns:[],name:"VueProgress",serverCacheKey:function(){return"Progress"},computed:{style:function(){var t=this.progress,o=t.options,i=!!o.show,e=o.location,s={"background-color":o.canSuccess?o.color:o.failedColor,opacity:o.show?1:0,position:o.position};return"top"===e||"bottom"===e?("top"===e?s.top="0px":s.bottom="0px",o.inverse?s.right="0px":s.left="0px",s.width=t.percent+"%",s.height=o.thickness,s.transition=(i?"width "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity):"left"!==e&&"right"!==e||("left"===e?s.left="0px":s.right="0px",o.inverse?s.top="0px":s.bottom="0px",s.height=t.percent+"%",s.width=o.thickness,s.transition=(i?"height "+o.transition.speed+", ":"")+"opacity "+o.transition.opacity),s},progress:function(){return t?window.VueProgressBarEventBus.RADON_LOADING_BAR:{percent:0,options:{canSuccess:!0,show:!1,color:"rgb(19, 91, 55)",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},location:"top",autoRevert:!0,inverse:!1}}}}};return{install:function(o){var t=1<arguments.length&&void 0!==arguments[1]?arguments[1]:{},i=(o.version.split(".")[0],"undefined"!=typeof window),e={$vm:null,state:{tFailColor:"",tColor:"",timer:null,cut:0},init:function(t){this.$vm=t},start:function(t){var o=this;this.$vm&&(t||(t=3e3),this.$vm.RADON_LOADING_BAR.percent=0,this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.state.cut=1e4/Math.floor(t),clearInterval(this.state.timer),this.state.timer=setInterval(function(){o.increase(o.state.cut*Math.random()),95<o.$vm.RADON_LOADING_BAR.percent&&o.$vm.RADON_LOADING_BAR.options.autoFinish&&o.finish()},100))},set:function(t){this.$vm.RADON_LOADING_BAR.options.show=!0,this.$vm.RADON_LOADING_BAR.options.canSuccess=!0,this.$vm.RADON_LOADING_BAR.percent=Math.floor(t)},get:function(){return Math.floor(this.$vm.RADON_LOADING_BAR.percent)},increase:function(t){this.$vm.RADON_LOADING_BAR.percent=Math.min(99,this.$vm.RADON_LOADING_BAR.percent+Math.floor(t))},decrease:function(t){this.$vm.RADON_LOADING_BAR.percent=this.$vm.RADON_LOADING_BAR.percent-Math.floor(t)},hide:function(){var t=this;clearInterval(this.state.timer),this.state.timer=null,setTimeout(function(){t.$vm.RADON_LOADING_BAR.options.show=!1,o.nextTick(function(){setTimeout(function(){t.$vm.RADON_LOADING_BAR.percent=0},100),t.$vm.RADON_LOADING_BAR.options.autoRevert&&setTimeout(function(){t.revert()},300)})},this.$vm.RADON_LOADING_BAR.options.transition.termination)},pause:function(){clearInterval(this.state.timer)},finish:function(){this.$vm&&(this.$vm.RADON_LOADING_BAR.percent=100,this.hide())},fail:function(){this.$vm.RADON_LOADING_BAR.options.canSuccess=!1,this.$vm.RADON_LOADING_BAR.percent=100,this.hide()},setFailColor:function(t){this.$vm.RADON_LOADING_BAR.options.failedColor=t},setColor:function(t){this.$vm.RADON_LOADING_BAR.options.color=t},setLocation:function(t){this.$vm.RADON_LOADING_BAR.options.location=t},setTransition:function(t){this.$vm.RADON_LOADING_BAR.options.transition=t},tempFailColor:function(t){this.state.tFailColor=this.$vm.RADON_LOADING_BAR.options.failedColor,this.$vm.RADON_LOADING_BAR.options.failedColor=t},tempColor:function(t){this.state.tColor=this.$vm.RADON_LOADING_BAR.options.color,this.$vm.RADON_LOADING_BAR.options.color=t},tempLocation:function(t){this.state.tLocation=this.$vm.RADON_LOADING_BAR.options.location,this.$vm.RADON_LOADING_BAR.options.location=t},tempTransition:function(t){this.state.tTransition=this.$vm.RADON_LOADING_BAR.options.transition,this.$vm.RADON_LOADING_BAR.options.transition=t},revertColor:function(){this.$vm.RADON_LOADING_BAR.options.color=this.state.tColor,this.state.tColor=""},revertFailColor:function(){this.$vm.RADON_LOADING_BAR.options.failedColor=this.state.tFailColor,this.state.tFailColor=""},revertLocation:function(){this.$vm.RADON_LOADING_BAR.options.location=this.state.tLocation,this.state.tLocation=""},revertTransition:function(){this.$vm.RADON_LOADING_BAR.options.transition=this.state.tTransition,this.state.tTransition={}},revert:function(){this.$vm.RADON_LOADING_BAR.options.autoRevert&&(this.state.tColor&&this.revertColor(),this.state.tFailColor&&this.revertFailColor(),this.state.tLocation&&this.revertLocation(),!this.state.tTransition||void 0===this.state.tTransition.speed&&void 0===this.state.tTransition.opacity||this.revertTransition())},parseMeta:function(t){for(var o in t.func){var i=t.func[o];switch(i.call){case"color":switch(i.modifier){case"set":this.setColor(i.argument);break;case"temp":this.tempColor(i.argument)}break;case"fail":switch(i.modifier){case"set":this.setFailColor(i.argument);break;case"temp":this.tempFailColor(i.argument)}break;case"location":switch(i.modifier){case"set":this.setLocation(i.argument);break;case"temp":this.tempLocation(i.argument)}break;case"transition":switch(i.modifier){case"set":this.setTransition(i.argument);break;case"temp":this.tempTransition(i.argument)}}}}},s=function(t,o){for(var i,e,s=1;s<arguments.length;++s)for(i in e=arguments[s])Object.prototype.hasOwnProperty.call(e,i)&&(t[i]=e[i]);return t}({canSuccess:!0,show:!1,color:"#73ccec",position:"fixed",failedColor:"red",thickness:"2px",transition:{speed:"0.2s",opacity:"0.6s",termination:300},autoRevert:!0,location:"top",inverse:!1,autoFinish:!0},t),n=new o({data:{RADON_LOADING_BAR:{percent:0,options:s}}});i&&(window.VueProgressBarEventBus=n,e.init(n)),o.component("vue-progress-bar",r),o.prototype.$Progress=e}}});
 
 
 /***/ }),
