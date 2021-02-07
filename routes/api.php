@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Backend\AssignPermissionController;
 use App\Http\Controllers\Api\V1\Backend\AuthController;
 use App\Http\Controllers\Api\V1\Backend\PermissionController;
 use App\Http\Controllers\Api\V1\Backend\RoleController;
@@ -43,5 +44,13 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
         Route::put('/{id}', [PermissionController::class, 'update']);
         Route::delete('/{id}', [PermissionController::class, 'destroy']);
         Route::post('/bulkdelete', [PermissionController::class, 'bulkDestroy']);
+    });
+
+    Route::group(['prefix' => 'assignpermission'], function () {
+        Route::get('/roles', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getRoles']);
+        Route::get('/getroleandpermission/{id}', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getRoleAndPermission']);
+        Route::get('/getpermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getPermissions']);
+        Route::post('/assignpermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'assignPermission']);
+        Route::post('/revokepermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'revokePermission']);
     });
 });
