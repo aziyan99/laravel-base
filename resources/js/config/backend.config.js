@@ -13,6 +13,8 @@ import Toasted from 'vue-toasted';
 import moment from 'moment';
 import VueProgressBar from 'vue-progressbar';
 import { VclTable, VclFacebook } from 'vue-content-loading';
+import vSelect from 'vue-select';
+import 'vue-select/dist/vue-select.css';
 
 window.Fire = new Vue();
 window.Form = Form;
@@ -47,4 +49,5 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.component('table-loading', VclTable);
 Vue.component('facebook-loading', VclFacebook);
+Vue.component('v-select', vSelect);
 
