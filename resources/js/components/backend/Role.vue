@@ -1,5 +1,7 @@
 <template>
-    <div class="card">
+<div>
+    <table-loading v-show="isLoading"></table-loading>
+    <div class="card" v-show="!isLoading">
         <div class="card-body">
             <div class="text-right">
                 <button type="button" @click="showBulkDestroyRoleForm" class="btn btn-danger" v-if="deleteRoles.length > 0">
@@ -141,6 +143,7 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 <script>
     export default {
@@ -158,6 +161,7 @@
                 deleteRoles: [],
                 allSelect: false,
                 bulkDeleteMode: false,
+                isLoading: false,
             }
         },
         watch: {
@@ -170,6 +174,8 @@
         },
         methods: {
             getRoles(page = 1) {
+                this.isLoading = true;
+                this.$Progress.start();
                 axios.get(`${RESTURIV1}/roles?page=${page}`, {
                         params: {
                             keywords: this.keywords,
@@ -177,9 +183,12 @@
                         }
                     })
                     .then(res => {
+                        this.$Progress.finish();
+                        this.isLoading = false;
                         this.roles = res.data;
                     }).catch(err => {
-                        //
+                        this.$Progress.finish();
+                        this.isLoading = true;
                     });
             },
             showCreateRoleFrom() {
@@ -188,13 +197,16 @@
                 $('#roleForm').modal('show');
             },
             storeRole() {
+                this.$Progress.start();
                 this.form.post(`${RESTURIV1}/roles`)
                     .then(() => {
+                        this.$Progress.finish();
                         $('#roleForm').modal('hide');
                         this.$toasted.success('Role berhasil disimpan');
                         Fire.$emit('DataUpdated');
                     })
                     .catch(err => {
+                        this.$Progress.finish();
                         this.$toasted.error(err);
                     });
             },
@@ -205,13 +217,16 @@
                 $('#roleForm').modal('show');
             },
             updateRole() {
+                this.$Progress.start();
                 this.form.put(`${RESTURIV1}/roles/${this.form.id}`)
                     .then(() => {
+                        this.$Progress.finish();
                         $('#roleForm').modal('hide');
                         this.$toasted.success('Role berhasil diubah');
                         Fire.$emit('DataUpdated');
                     })
                     .catch(err => {
+                        this.$Progress.finish();
                         this.$toasted.error(err);
                     });
             },
@@ -221,14 +236,17 @@
                 this.form.fill(role);
             },
             destroyRole() {
+                this.$Progress.start();
                 axios.delete(`${RESTURIV1}/roles/${this.form.id}`)
                     .then(() => {
+                        this.$Progress.finish();
                         this.resetForm();
                         $('#destroyRoleForm').modal('hide');
                         this.$toasted.success('Role berhasil dihapus');
                         Fire.$emit('DataUpdated');
                     })
                     .catch(err => {
+                        this.$Progress.finish();
                         this.$toasted.success(err);
                     });
             },
@@ -248,17 +266,20 @@
                 $('#destroyRoleForm').modal('show');
             },
             bulkDestroy() {
+                this.$Progress.start();
                 const data = {
                     'id': this.deleteRoles
                 }
                 axios.post(`${RESTURIV1}/roles/bulkdelete`, data)
                     .then(res => {
+                        this.$Progress.finish();
                         Fire.$emit('DataUpdated');
                         $('#destroyRoleForm').modal('hide');
                         this.$toasted.success('Role berhasil dihapus');
                         this.deleteRoles = [];
                         this.allSelect = false;
                     }).catch(err => {
+                        this.$Progress.finish();
                         this.$toasted.error(err);
                     });
             },
@@ -280,5 +301,4 @@
             });
         }
     }
-
 </script>
