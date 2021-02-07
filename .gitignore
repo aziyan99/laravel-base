@@ -3,8 +3,14 @@
 /public/storage
 /storage/*.key
 /vendor
+<<<<<<< HEAD
 ./vscode
 ./idea
+=======
+/.idea
+/.vscode
+todo.*
+>>>>>>> develop
 .env
 .env.backup
 .phpunit.result.cache

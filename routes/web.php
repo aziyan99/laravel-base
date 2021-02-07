@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->json(['msg' => 'hello']);
+});
+
+Route::any('/backoffice/{slug}', function () {
+    return view('layouts.backend');
+})->middleware('auth:sanctum');
+
+Route::any('/auth/{slug}', function () {
+    return view('layouts.auth');
 });
