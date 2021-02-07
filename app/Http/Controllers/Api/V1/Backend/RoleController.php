@@ -9,6 +9,15 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
+
+    /**
+     * Sanctum check
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -79,6 +88,12 @@ class RoleController extends Controller
             ->json(['msg' => 'ok'], 200);
     }
 
+    /**
+     * Bulk Destroy
+     *
+     * @param Request $request
+     * @return void
+     */
     public function bulkDestroy(Request $request)
     {
         $data = $request->id;
