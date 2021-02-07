@@ -8,6 +8,7 @@
                     <div class="container-fluid">
                         <div class="fade-in">
                             <router-view></router-view>
+                            <vue-progress-bar></vue-progress-bar>
                         </div>
                     </div>
                 </main>
