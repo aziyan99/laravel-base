@@ -6,6 +6,7 @@ Vue.use(Router);
 import Dashboard from './../components/backend/Dashboard';
 import Profile from './../components/backend/Profile';
 import Role from './../components/backend/Role';
+import Permission from './../components/backend/Permission';
 
 const routes = [
     {
@@ -16,13 +17,20 @@ const routes = [
             title: 'Dashbor | Admin area'
         }
     },
-    ,
     {
         name: 'role',
         path: '/backoffice/role',
         component: Role,
         meta: {
             title: 'Role | Admin area'
+        }
+    },
+    {
+        name: 'permission',
+        path: '/backoffice/permission',
+        component: Permission,
+        meta: {
+            title: 'Permission | Admin area'
         }
     },
     {
