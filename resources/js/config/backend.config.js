@@ -19,6 +19,7 @@ import 'vue-select/dist/vue-select.css';
 window.Fire = new Vue();
 window.Form = Form;
 window.RESTURIV1 = '/api/v1';
+//window.ASSETURI = '/storage/';
 
 const toastedOptions = {
     position: "top-center",
@@ -43,6 +44,10 @@ Vue.filter('formatDate', function (createdAt) {
     moment.locale('id');
     return moment(createdAt).format('dddd');
 });
+Vue.filter('implode', function(){
+
+});
+
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component(HasError.name, HasError)
