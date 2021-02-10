@@ -2472,15 +2472,292 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {};
+    return {
+      profile: new Form({
+        name: '',
+        email: '',
+        phone_number: '',
+        address: '',
+        image: ''
+      }),
+      password: new Form({
+        password: '',
+        password_confirmation: ''
+      }),
+      role: [],
+      assetUri: '/storage/',
+      isLoading: false,
+      progressBar: 0,
+      image: '',
+      progressLoading: false
+    };
+  },
+  methods: {
+    fetchProfileData: function fetchProfileData() {
+      var _this = this;
+
+      this.isLoading = true;
+      this.$Progress.start();
+      axios.get("".concat(RESTURIV1, "/profile")).then(function (res) {
+        _this.isLoading = false;
+
+        _this.$Progress.finish();
+
+        _this.profile.fill(res.data);
+
+        _this.role = res.data.role;
+        _this.profile.image = _this.assetUri + res.data.image;
+      })["catch"](function (err) {
+        _this.$Progress.finish();
+      });
+    },
+    updateGeneralInformation: function updateGeneralInformation() {
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.profile.post("".concat(RESTURIV1, "/profile/updategeneralinformations")).then(function () {
+        _this2.$Progress.finish();
+
+        _this2.$toasted.success('Profile berhasil diperbarui');
+
+        Fire.$emit('ProfileChange');
+      })["catch"](function (err) {
+        _this2.$Progress.finish();
+
+        _this2.$toasted.error(err);
+      });
+    },
+    showUpdateImageModal: function showUpdateImageModal() {
+      $('#updateImageModal').modal('show');
+    },
+    //MENYIMPAN DATA FILE YANG AKAN DI-UPLOAD
+    imageUpload: function imageUpload(event) {
+      this.image = event.files[0];
+    },
+    //MENGIRIM FILE UNTUK DI-UPLOAD
+    submitImage: function submitImage() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      this.progressLoading = true;
+      var formData = new FormData();
+      formData.append('image', this.image);
+      axios.post("".concat(RESTURIV1, "/profile/updateimage"), formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        //FUNGSI INI YANG MEMILIKI PERAN UNTUK MENGUBAH SEBERAPA JAUH PROGRESS UPLOAD FILE BERJALAN
+        onUploadProgress: function (progressEvent) {
+          //DATA TERSEBUT AKAN DI ASSIGN KE VARIABLE progressBar
+          this.progressBar = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
+      }).then(function () {
+        _this3.$Progress.finish();
+
+        setTimeout(function () {
+          _this3.progressLoading = false;
+
+          _this3.reset();
+        });
+        Fire.$emit('ProfileChange');
+
+        _this3.$toasted.success('Gambar berhasil diperbarui');
+
+        _this3.image = '';
+        $('#updateImageModal').modal('hide');
+      });
+    },
+    //RESET FORM UPLOAD
+    reset: function reset() {
+      this.$refs.imageFile.value = null;
+    },
+    showUpdatePasswordModal: function showUpdatePasswordModal() {
+      this.password.clear();
+      this.password.reset();
+      $('#updatePasswordModal').modal('show');
+    },
+    updatePassword: function updatePassword() {
+      var _this4 = this;
+
+      this.$Progress.start();
+      this.password.post("".concat(RESTURIV1, "/profile/updatepassword")).then(function () {
+        _this4.$toasted.success('Kata sandi berhasil diperbarui');
+
+        _this4.$Progress.finish();
+
+        $('#updatePasswordModal').modal('hide');
+      })["catch"](function (err) {
+        _this4.$Progress.finish();
+
+        _this4.$toasted.error(err);
+      });
+    }
   },
   mounted: function mounted() {
     var data = {
       title: "Profil"
     };
     Fire.$emit('PageChange', data);
+  },
+  created: function created() {
+    var _this5 = this;
+
+    this.fetchProfileData();
+    Fire.$on('ProfileChange', function () {
+      _this5.fetchProfileData();
+    });
   }
 });
 
@@ -3403,10 +3680,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      pageTitle: ''
+      pageTitle: '',
+      image: ''
     };
   },
   methods: {
+    getImageProfile: function getImageProfile() {
+      var _this = this;
+
+      axios.get("".concat(RESTURIV1, "/profile")).then(function (res) {
+        _this.image = '/storage/' + res.data.image;
+      })["catch"](function (err) {//
+      });
+    },
     logout: function logout() {
       axios.post("".concat(RESTURIV1, "/logout")).then(function () {
         window.location.replace("/");
@@ -3414,10 +3700,14 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
+    this.getImageProfile();
     Fire.$on('PageChange', function (data) {
-      _this.pageTitle = data.title;
+      _this2.pageTitle = data.title;
+    });
+    Fire.$on('ProfileChange', function () {
+      _this2.getImageProfile();
     });
   }
 });
@@ -59995,14 +60285,643 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c("facebook-loading", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isLoading,
+            expression: "isLoading"
+          }
+        ]
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: !_vm.isLoading,
+              expression: "!isLoading"
+            }
+          ],
+          staticClass: "row"
+        },
+        [
+          _c("div", { staticClass: "col-lg-4 col-md-4 col-sm-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body text-center" }, [
+                _c("img", {
+                  staticClass: "rounded-circle",
+                  attrs: {
+                    src: _vm.profile.image,
+                    alt: "img",
+                    width: "100",
+                    height: "100"
+                  }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "mt-2" }, [
+                  _vm._v(_vm._s(_vm.profile.name))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted" }, [
+                  _c("span", { staticClass: "badge badge-info" }, [
+                    _vm._v(_vm._s(_vm.role.join(", ")))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.showUpdateImageModal }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon align-middle cil-image mr-1"
+                    }),
+                    _vm._v(
+                      "\n                        Ubah gambar\n                    "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-danger",
+                    on: { click: _vm.showUpdatePasswordModal }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon align-middle cil-lock-locked mr-1"
+                    }),
+                    _vm._v(
+                      "\n                        Ubah kata sandi\n                    "
+                    )
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-lg-8 col-md-8 col-sm-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _c("div", { staticClass: "card-body" }, [
+                _c("h3", [_vm._v("Profil")]),
+                _vm._v(" "),
+                _c("p", { staticClass: "text-muted" }, [
+                  _vm._v("Terkadang data kita perlu diperbarui :v")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.updateGeneralInformation($event)
+                      },
+                      keydown: function($event) {
+                        return _vm.profile.onKeydown($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Nama")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.profile.name,
+                                    expression: "profile.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.profile.errors.has("name")
+                                },
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.profile.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.profile,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.profile, field: "name" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Email")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.profile.email,
+                                    expression: "profile.email"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.profile.errors.has("email")
+                                },
+                                attrs: { type: "email" },
+                                domProps: { value: _vm.profile.email },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.profile,
+                                      "email",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.profile, field: "email" }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("No.Hp")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.profile.phone_number,
+                                    expression: "profile.phone_number"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.profile.errors.has(
+                                    "phone_number"
+                                  )
+                                },
+                                attrs: { type: "text" },
+                                domProps: { value: _vm.profile.phone_number },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.profile,
+                                      "phone_number",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.profile,
+                                  field: "phone_number"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-lg-6 col-md-6 col-sm-12" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Alamat")]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.profile.address,
+                                    expression: "profile.address"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.profile.errors.has(
+                                    "address"
+                                  )
+                                },
+                                attrs: {
+                                  name: "address",
+                                  cols: "30",
+                                  rows: "5"
+                                },
+                                domProps: { value: _vm.profile.address },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.profile,
+                                      "address",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.profile, field: "address" }
+                              })
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "updateImageModal",
+            tabindex: "-1",
+            "aria-labelledby": "roleFormLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: { action: "javascript:void(0);" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.submitImage($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Gambar baru")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        ref: "imageFile",
+                        staticClass: "form-control",
+                        attrs: { type: "file", name: "image", required: "" },
+                        on: {
+                          change: function($event) {
+                            return _vm.imageUpload($event.target)
+                          }
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "progress" }, [
+                      _c("div", {
+                        staticClass: "progress-bar",
+                        style: { width: _vm.progressBar + "%" },
+                        attrs: {
+                          role: "progressbar",
+                          "aria-valuenow": _vm.progressBar,
+                          "aria-valuemin": "0",
+                          "aria-valuemax": "100"
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { disabled: _vm.progressLoading, type: "submit" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "align-middle c-icon cil-image mr-1"
+                        }),
+                        _vm._v(
+                          "\n                            Ubah\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "updatePasswordModal",
+            tabindex: "-1",
+            "aria-labelledby": "roleFormLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  attrs: { action: "javascript:void(0);" },
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.updatePassword($event)
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Kata sandi baru")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password.password,
+                              expression: "password.password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.password.errors.has("password")
+                          },
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.password.password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.password,
+                                "password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.password, field: "password" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", [_vm._v("Ulang kata sandi baru")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.password.password_confirmation,
+                              expression: "password.password_confirmation"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.password.errors.has(
+                              "password_confirmation"
+                            )
+                          },
+                          attrs: { type: "password" },
+                          domProps: {
+                            value: _vm.password.password_confirmation
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.password,
+                                "password_confirmation",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: {
+                            form: _vm.password,
+                            field: "password_confirmation"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [_c("h1", [_vm._v("Profile")])])
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [
+          _c("i", { staticClass: "c-icon cil-save align-middle mr-1" }),
+          _vm._v(
+            "\n                                Ubah\n                            "
+          )
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "roleFormLabel" } }, [
+        _vm._v("Ubah gambar")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-secondary",
+        attrs: { type: "button", "data-dismiss": "modal" }
+      },
+      [
+        _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
+        _vm._v("\n                            Batal\n                        ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c("h5", { staticClass: "modal-title", attrs: { id: "roleFormLabel" } }, [
+        _vm._v("Ubah kata sandi")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close"
+          }
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [
+          _c("i", { staticClass: "align-middle c-icon cil-x mr-1" }),
+          _vm._v(
+            "\n                            Batal\n                        "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "submit" } },
+        [
+          _c("i", { staticClass: "align-middle c-icon cil-lock-locked mr-1" }),
+          _vm._v("\n                            Ubah\n                        ")
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -62103,34 +63022,103 @@ var render = function() {
       _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
-      _vm._m(3),
+      _c("ul", { staticClass: "c-header-nav d-md-down-none" }, [
+        _c(
+          "li",
+          { staticClass: "c-header-nav-item px-3" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "c-header-nav-link",
+                attrs: { to: { name: "dashboard" } }
+              },
+              [_vm._v("Dashbor")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "li",
+          { staticClass: "c-header-nav-item px-3" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "c-header-nav-link",
+                attrs: { to: { name: "user" } }
+              },
+              [_vm._v("Pengguna")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(3)
+      ]),
       _vm._v(" "),
       _c("ul", { staticClass: "c-header-nav ml-auto mr-4" }, [
         _vm._m(4),
         _vm._v(" "),
         _c("li", { staticClass: "c-header-nav-item dropdown" }, [
-          _vm._m(5),
+          _c(
+            "a",
+            {
+              staticClass: "c-header-nav-link",
+              attrs: {
+                "data-toggle": "dropdown",
+                href: "#",
+                role: "button",
+                "aria-haspopup": "true",
+                "aria-expanded": "false"
+              }
+            },
+            [
+              _c("div", { staticClass: "c-avatar" }, [
+                _c("img", {
+                  staticClass: "c-avatar-img",
+                  attrs: { src: _vm.image, alt: "user@email.com" }
+                })
+              ])
+            ]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "dropdown-menu dropdown-menu-right pt-0" }, [
-            _vm._m(6),
-            _vm._v(" "),
-            _vm._m(7),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-divider" }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "dropdown-item",
-                attrs: { type: "button" },
-                on: { click: _vm.logout }
-              },
-              [
-                _c("i", { staticClass: "mr-3 c-icon cil-account-logout" }),
-                _vm._v("Keluar\n                ")
-              ]
-            )
-          ])
+          _c(
+            "div",
+            { staticClass: "dropdown-menu dropdown-menu-right pt-0" },
+            [
+              _vm._m(5),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "dropdown-item",
+                  attrs: { to: { name: "profile" } }
+                },
+                [
+                  _c("i", { staticClass: "mr-3 c-icon cil-user" }),
+                  _vm._v("\n                    Profile\n                ")
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "dropdown-divider" }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "dropdown-item",
+                  attrs: { type: "button" },
+                  on: { click: _vm.logout }
+                },
+                [
+                  _c("i", { staticClass: "mr-3 c-icon cil-account-logout" }),
+                  _vm._v("Keluar\n                ")
+                ]
+              )
+            ],
+            1
+          )
         ])
       ]),
       _vm._v(" "),
@@ -62207,23 +63195,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "c-header-nav d-md-down-none" }, [
-      _c("li", { staticClass: "c-header-nav-item px-3" }, [
-        _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
-          _vm._v("Dashboard")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "c-header-nav-item px-3" }, [
-        _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
-          _vm._v("Users")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "c-header-nav-item px-3" }, [
-        _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
-          _vm._v("Settings")
-        ])
+    return _c("li", { staticClass: "c-header-nav-item px-3" }, [
+      _c("a", { staticClass: "c-header-nav-link", attrs: { href: "#" } }, [
+        _vm._v("Pengaturan")
       ])
     ])
   },
@@ -62241,46 +63215,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "c-header-nav-link",
-        attrs: {
-          "data-toggle": "dropdown",
-          href: "#",
-          role: "button",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _c("div", { staticClass: "c-avatar" }, [
-          _c("img", {
-            staticClass: "c-avatar-img",
-            attrs: {
-              src: "/assets/backend/assets/img/avatars/6.jpg",
-              alt: "user@email.com"
-            }
-          })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "dropdown-header bg-light py-2" }, [
       _c("strong", [_vm._v("Settings")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "mr-3 c-icon cil-user" }),
-      _vm._v("\n                    Profile\n                ")
     ])
   }
 ]
