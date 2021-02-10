@@ -3,13 +3,13 @@
     <div class="card">
         <div class="card-body">
             <div class="text-right">
-                <button type="button" @click="showBulkDestroyRoleForm" class="btn btn-danger" v-if="deleteRoles.length > 0">
+                <button type="button" @click="showBulkDestroyRoleForm" class="btn btn-danger" v-if="deleteRoles.length > 0 && $can('role.hapus')">
                     <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                 </button>
-                <button type="button" disabled class="btn btn-danger" v-else>
+                <button type="button" disabled class="btn btn-danger"  v-if="$can('role.hapus') && deleteRoles.length < 1">
                     <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                 </button>
-                <button class="btn btn-primary" @click="showCreateRoleFrom">
+                <button class="btn btn-primary" @click="showCreateRoleFrom" v-if="$can('role.tambah')">
                     <i class="c-icon mr-2 cil-plus align-middle"></i>
                     Tambah Role
                 </button>
@@ -51,11 +51,11 @@
                             <td>{{ role.guard_name }}</td>
                             <td>{{ role.created_at | formatDate }}</td>
                             <td>
-                                <button @click="showEditRoleForm(role)" class="btn btn-warning btn-sm">
+                                <button @click="showEditRoleForm(role)" class="btn btn-warning btn-sm" v-if="$can('role.ubah')">
                                     <i class="c-icon cil-pencil mr-1 align-middle"></i>
                                     edit
                                 </button>
-                                <button @click="showDestroyRoleForm(role)" class="btn btn-danger btn-sm">
+                                <button @click="showDestroyRoleForm(role)" class="btn btn-danger btn-sm" v-if="$can('role.hapus')">
                                     <i class="c-icon cil-trash mr-1 align-middle"></i>
                                     hapus
                                 </button>
