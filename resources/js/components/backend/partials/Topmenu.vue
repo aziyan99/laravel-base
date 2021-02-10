@@ -12,9 +12,9 @@
             <i class="c-icon-lg c-icon cil-menu"></i>
         </button>
         <ul class="c-header-nav d-md-down-none">
-            <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Dashboard</a></li>
-            <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Users</a></li>
-            <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Settings</a></li>
+            <li class="c-header-nav-item px-3"><router-link class="c-header-nav-link" :to="{name: 'dashboard'}">Dashbor</router-link></li>
+            <li class="c-header-nav-item px-3"><router-link class="c-header-nav-link" :to="{name: 'user'}">Pengguna</router-link></li>
+            <li class="c-header-nav-item px-3"><a class="c-header-nav-link" href="#">Pengaturan</a></li>
         </ul>
         <ul class="c-header-nav ml-auto mr-4">
             <li class="c-header-nav-item d-md-down-none mx-2">
@@ -26,17 +26,17 @@
                 <a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                     aria-expanded="false">
                     <div class="c-avatar"><img class="c-avatar-img"
-                            src="/assets/backend/assets/img/avatars/6.jpg" alt="user@email.com">
+                            :src="image" alt="user@email.com">
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pt-0">
                     <div class="dropdown-header bg-light py-2">
                         <strong>Settings</strong>
                     </div>
-                    <a class="dropdown-item" href="#">
+                    <router-link class="dropdown-item" :to="{name: 'profile'}">
                         <i class="mr-3 c-icon cil-user"></i>
                         Profile
-                    </a>
+                    </router-link>
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" type="button" @click="logout">
                         <i class="mr-3 c-icon cil-account-logout"></i>Keluar
@@ -60,9 +60,18 @@ export default {
     data(){
         return{
             pageTitle:'',
+            image: '',
         }
     },
     methods:{
+        getImageProfile(){
+            axios.get(`${RESTURIV1}/profile`)
+            .then(res => {
+                this.image = '/storage/' + res.data.image;
+            }).catch(err => {
+                //
+            });
+        },
         logout(){
             axios.post(`${RESTURIV1}/logout`)
             .then(() => {
@@ -72,8 +81,12 @@ export default {
         }
     },
     created(){
+        this.getImageProfile();
         Fire.$on('PageChange', (data) => {
             this.pageTitle = data.title;
+        });
+        Fire.$on('ProfileChange', () => {
+            this.getImageProfile();
         });
     }
 }
