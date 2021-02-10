@@ -8,6 +8,8 @@ import Profile from './../components/backend/Profile';
 import Role from './../components/backend/Role';
 import Permission from './../components/backend/Permission';
 import AssignPermission from './../components/backend/AssignPermission';
+import User from './../components/backend/User';
+
 
 const routes = [
     {
@@ -40,6 +42,14 @@ const routes = [
         component: AssignPermission,
         meta: {
             title: 'Assign Permission | Admin area'
+        }
+    },
+    {
+        name: 'user',
+        path: '/backoffice/user',
+        component: User,
+        meta: {
+            title: 'Pengguna | Admin area'
         }
     },
     {
