@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\Backend\AssignPermissionController;
 use App\Http\Controllers\Api\V1\Backend\AuthController;
 use App\Http\Controllers\Api\V1\Backend\PermissionController;
 use App\Http\Controllers\Api\V1\Backend\RoleController;
+use App\Http\Controllers\Api\V1\Backend\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,10 +48,19 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
     });
 
     Route::group(['prefix' => 'assignpermission'], function () {
-        Route::get('/roles', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getRoles']);
-        Route::get('/getroleandpermission/{id}', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getRoleAndPermission']);
-        Route::get('/getpermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'getPermissions']);
-        Route::post('/assignpermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'assignPermission']);
-        Route::post('/revokepermission', [App\Http\Controllers\Api\V1\Backend\AssignPermissionController::class, 'revokePermission']);
+        Route::get('/roles', [AssignPermissionController::class, 'getRoles']);
+        Route::get('/getroleandpermission/{id}', [AssignPermissionController::class, 'getRoleAndPermission']);
+        Route::get('/getpermission', [AssignPermissionController::class, 'getPermissions']);
+        Route::post('/assignpermission', [AssignPermissionController::class, 'assignPermission']);
+        Route::post('/revokepermission', [AssignPermissionController::class, 'revokePermission']);
+    });
+
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/', [UserController::class, 'index']);
+        Route::post('/', [UserController::class, 'store']);
+        Route::put('/{user}', [UserController::class, 'update']);
+        Route::delete('/{user}', [UserController::class, 'destroy']);
+        Route::post('/bulkdelete', [UserController::class, 'bulkDestroy']);
+        Route::post('/resetpassword', [UserController::class, 'resetPassword']);
     });
 });
