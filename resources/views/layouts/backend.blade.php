@@ -13,6 +13,13 @@
     <!-- Main styles for this application-->
     <link href="{{ asset('assets/backend') }}/css/style.css" rel="stylesheet">
     <link href="{{ asset('assets/backend') }}/vendors/@coreui/icons/css/free.min.css" rel="stylesheet">
+    <script>
+        @auth
+          window.Permissions = {!! json_encode(auth()->user()->allPermissions, true) !!};
+        @else
+          window.Permissions = [];
+        @endauth
+    </script>
 </head>
 
 <body class="c-app">
