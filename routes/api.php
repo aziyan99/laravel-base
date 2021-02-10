@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\Backend\AssignPermissionController;
 use App\Http\Controllers\Api\V1\Backend\AuthController;
 use App\Http\Controllers\Api\V1\Backend\PermissionController;
+use App\Http\Controllers\Api\V1\Backend\ProfileController;
 use App\Http\Controllers\Api\V1\Backend\RoleController;
 use App\Http\Controllers\Api\V1\Backend\UserController;
 use Illuminate\Http\Request;
@@ -62,5 +63,12 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
         Route::delete('/{user}', [UserController::class, 'destroy']);
         Route::post('/bulkdelete', [UserController::class, 'bulkDestroy']);
         Route::post('/resetpassword', [UserController::class, 'resetPassword']);
+    });
+
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [ProfileController::class, 'getGeneralInformation']);
+        Route::post('/updategeneralinformations', [ProfileController::class, 'updateGeneralInformation']);
+        Route::post('/updatepassword', [ProfileController::class, 'updatePassword']);
+        Route::post('/updateimage', [ProfileController::class, 'updateImage']);
     });
 });
