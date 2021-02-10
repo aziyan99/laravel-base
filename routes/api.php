@@ -33,36 +33,36 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::group(['prefix' => 'roles'], function () {
-        Route::get('/', [RoleController::class, 'index']);
-        Route::post('/', [RoleController::class, 'store']);
-        Route::put('/{id}', [RoleController::class, 'update']);
-        Route::delete('/{id}', [RoleController::class, 'destroy']);
-        Route::post('/bulkdelete', [RoleController::class, 'bulkDestroy']);
+        Route::get('/', [RoleController::class, 'index'])->middleware('permission:role.lihat');
+        Route::post('/', [RoleController::class, 'store'])->middleware('permission:role.tambah');
+        Route::put('/{id}', [RoleController::class, 'update'])->middleware('permission:role.ubah');
+        Route::delete('/{id}', [RoleController::class, 'destroy'])->middleware('permission:role.hapus');
+        Route::post('/bulkdelete', [RoleController::class, 'bulkDestroy'])->middleware('permission:role.hapus');
     });
 
     Route::group(['prefix' => 'permissions'], function () {
-        Route::get('/', [PermissionController::class, 'index']);
-        Route::post('/', [PermissionController::class, 'store']);
-        Route::put('/{id}', [PermissionController::class, 'update']);
-        Route::delete('/{id}', [PermissionController::class, 'destroy']);
-        Route::post('/bulkdelete', [PermissionController::class, 'bulkDestroy']);
+        Route::get('/', [PermissionController::class, 'index'])->middleware('permission:permission.lihat');
+        Route::post('/', [PermissionController::class, 'store'])->middleware('permission:permission.tambah');
+        Route::put('/{id}', [PermissionController::class, 'update'])->middleware('permission:permission.ubah');
+        Route::delete('/{id}', [PermissionController::class, 'destroy'])->middleware('permission:permission.hapus');
+        Route::post('/bulkdelete', [PermissionController::class, 'bulkDestroy'])->middleware('permission:permission.hapus');
     });
 
     Route::group(['prefix' => 'assignpermission'], function () {
-        Route::get('/roles', [AssignPermissionController::class, 'getRoles']);
-        Route::get('/getroleandpermission/{id}', [AssignPermissionController::class, 'getRoleAndPermission']);
-        Route::get('/getpermission', [AssignPermissionController::class, 'getPermissions']);
-        Route::post('/assignpermission', [AssignPermissionController::class, 'assignPermission']);
-        Route::post('/revokepermission', [AssignPermissionController::class, 'revokePermission']);
+        Route::get('/roles', [AssignPermissionController::class, 'getRoles'])->middleware('permission:assignpermission.lihat');
+        Route::get('/getroleandpermission/{id}', [AssignPermissionController::class, 'getRoleAndPermission'])->middleware('permission:assignpermission.lihat');
+        Route::get('/getpermission', [AssignPermissionController::class, 'getPermissions'])->middleware('permission:assignpermission.lihat');
+        Route::post('/assignpermission', [AssignPermissionController::class, 'assignPermission'])->middleware('permission:assignpermission.ubah');
+        Route::post('/revokepermission', [AssignPermissionController::class, 'revokePermission'])->middleware('permission:assignpermission.ubah');
     });
 
     Route::group(['prefix' => 'users'], function () {
-        Route::get('/', [UserController::class, 'index']);
-        Route::post('/', [UserController::class, 'store']);
-        Route::put('/{user}', [UserController::class, 'update']);
-        Route::delete('/{user}', [UserController::class, 'destroy']);
-        Route::post('/bulkdelete', [UserController::class, 'bulkDestroy']);
-        Route::post('/resetpassword', [UserController::class, 'resetPassword']);
+        Route::get('/', [UserController::class, 'index'])->middleware('permission:pengguna.lihat');
+        Route::post('/', [UserController::class, 'store'])->middleware('permission:pengguna.tambah');
+        Route::put('/{user}', [UserController::class, 'update'])->middleware('permission:pengguna.ubah');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->middleware('permission:pengguna.hapus');
+        Route::post('/bulkdelete', [UserController::class, 'bulkDestroy'])->middleware('permission:pengguna.hapus');
+        Route::post('/resetpassword', [UserController::class, 'resetPassword'])->middleware('permission:pengguna.ubah');
     });
 
     Route::group(['prefix' => 'profile'], function () {

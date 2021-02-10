@@ -11,7 +11,7 @@
                 </router-link>
             </li>
             <li class="c-sidebar-nav-title">Menu Utama</li>
-            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+            <li class="c-sidebar-nav-item c-sidebar-nav-dropdown" v-if="$can('role.lihat') || $can('permission.lihat') || $can('assignpermission.lihat')">
                 <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="javascript:;">
                     <i class="c-sidebar-nav-icon c-icon cil-shield-alt"></i>
                     Hak Akses & Keamanan

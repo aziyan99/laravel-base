@@ -4,13 +4,13 @@
             <div class="card-body">
                 <div class="text-right">
                     <button type="button" @click="showBulkDestroyUserModal" class="btn btn-danger"
-                        v-if="deleteUsers.length > 0">
+                        v-if="deleteUsers.length > 0 && $can('pengguna.hapus')">
                         <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                     </button>
-                    <button type="button" disabled class="btn btn-danger" v-else>
+                    <button type="button" disabled class="btn btn-danger" v-if="$can('pengguna.hapus')">
                         <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                     </button>
-                    <button class="btn btn-primary" @click="showCreateUserModal">
+                    <button class="btn btn-primary" @click="showCreateUserModal" v-if="$can('pengguna.tambah')">
                         <i class="c-icon mr-2 cil-plus align-middle"></i>
                         Tambah Pengguna
                     </button>
@@ -64,15 +64,15 @@
                                 </td>
                                 <td>{{ user.created_at | formatDate }}</td>
                                 <td v-if="user.id !== loggedUserId">
-                                    <button @click="showEditUserModal(user)" class="btn btn-warning btn-sm">
+                                    <button @click="showEditUserModal(user)" class="btn btn-warning btn-sm" v-if="$can('pengguna.ubah')">
                                         <i class="c-icon cil-pencil mr-1 align-middle"></i>
                                         edit
                                     </button>
-                                    <button @click="showDetailUserModal(user)" class="btn btn-info btn-sm">
+                                    <button @click="showDetailUserModal(user)" class="btn btn-info btn-sm" v-if="$can('pengguna.lihat')">
                                         <i class="c-icon cil-file mr-1 align-middle"></i>
                                         lihat
                                     </button>
-                                    <button @click="showDestroyUserModal(user)" class="btn btn-danger btn-sm">
+                                    <button @click="showDestroyUserModal(user)" class="btn btn-danger btn-sm" v-if="$can('pengguna.hapus')">
                                         <i class="c-icon cil-trash mr-1 align-middle"></i>
                                         hapus
                                     </button>
@@ -234,7 +234,7 @@
                                     </tr>
                                 </table>
                                 <div class="text-right">
-                                    <button @click="resetPassword(detailUser.id)"  class="btn btn-danger btn-sm">
+                                    <button @click="resetPassword(detailUser.id)"  class="btn btn-danger btn-sm"  v-if="$can('pengguna.ubah')">
                                         <i class="c-icon cil-lock-locked mr-1 align-middle"></i>
                                         Reset kata sandi
                                     </button>

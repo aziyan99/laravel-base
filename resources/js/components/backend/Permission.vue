@@ -3,13 +3,13 @@
     <div class="card">
         <div class="card-body">
             <div class="text-right">
-                <button type="button" @click="showBulkDestroyPermissionModal" class="btn btn-danger" v-if="deletePermissions.length > 0">
+                <button type="button" @click="showBulkDestroyPermissionModal" class="btn btn-danger" v-if="deletePermissions.length > 0 && $can('permission.hapus')">
                     <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                 </button>
-                <button type="button" disabled class="btn btn-danger" v-else>
+                <button type="button" disabled class="btn btn-danger" v-if="$can('permission.hapus')">
                     <i class="c-icon cil-trash align-middle mr-2"></i>Hapus yang dipilih
                 </button>
-                <button class="btn btn-primary" @click="showCreatePermissionModal">
+                <button class="btn btn-primary" @click="showCreatePermissionModal" v-if="$can('permission.tambah')">
                     <i class="c-icon mr-2 cil-plus align-middle"></i>
                     Tambah Permission
                 </button>
@@ -35,7 +35,7 @@
                 <table class="table table-hover table-bordered table-sm mt-3">
                     <thead>
                         <tr>
-                            <th>
+                            <th v-if="$can('permission.hapus')">
                                 <input type="checkbox" v-model="allSelect" @click="selectAll" />
                             </th>
                             <th>Nama</th>
@@ -46,16 +46,16 @@
                     </thead>
                     <tbody>
                         <tr v-for="permission in permissions.data" :key="permission.id">
-                            <td><input type="checkbox" v-model="deletePermissions" :value="`${permission.id}`" /></td>
+                            <td v-if="$can('permission.hapus')"><input type="checkbox" v-model="deletePermissions" :value="`${permission.id}`" /></td>
                             <td>{{ permission.name }}</td>
                             <td>{{ permission.guard_name }}</td>
                             <td>{{ permission.created_at | formatDate }}</td>
                             <td>
-                                <button @click="showEditPermissionModal(permission)" class="btn btn-warning btn-sm">
+                                <button @click="showEditPermissionModal(permission)"  v-if="$can('permission.ubah')" class="btn btn-warning btn-sm">
                                     <i class="c-icon cil-pencil mr-1 align-middle"></i>
                                     edit
                                 </button>
-                                <button @click="showDestroyPermissionModal(permission)" class="btn btn-danger btn-sm">
+                                <button @click="showDestroyPermissionModal(permission)" class="btn btn-danger btn-sm" v-if="$can('permission.hapus')">
                                     <i class="c-icon cil-trash mr-1 align-middle"></i>
                                     hapus
                                 </button>

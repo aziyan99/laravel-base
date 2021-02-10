@@ -59186,62 +59186,64 @@ var render = function() {
                 _vm._v("Ubah permission dari role yang dipilih")
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c("v-select", {
-                        attrs: { options: _vm.permissionOptions },
-                        model: {
-                          value: _vm.selectedPermission,
-                          callback: function($$v) {
-                            _vm.selectedPermission = $$v
-                          },
-                          expression: "selectedPermission"
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-lg-6" }, [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.selectedPermission !== "",
-                          expression: "selectedPermission !== ''"
-                        }
-                      ],
-                      staticClass: "form-group"
-                    },
-                    [
+              _vm.$can("assignpermission.ubah")
+                ? _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-lg-6" }, [
                       _c(
-                        "button",
+                        "div",
+                        { staticClass: "form-group" },
+                        [
+                          _c("v-select", {
+                            attrs: { options: _vm.permissionOptions },
+                            model: {
+                              value: _vm.selectedPermission,
+                              callback: function($$v) {
+                                _vm.selectedPermission = $$v
+                              },
+                              expression: "selectedPermission"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-lg-6" }, [
+                      _c(
+                        "div",
                         {
-                          staticClass: "btn btn-primary",
-                          on: { click: _vm.assignPermission }
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.selectedPermission !== "",
+                              expression: "selectedPermission !== ''"
+                            }
+                          ],
+                          staticClass: "form-group"
                         },
                         [
-                          _c("i", {
-                            staticClass:
-                              "c-icon cil-lock-locked mr-1 align-middle"
-                          }),
-                          _vm._v(
-                            "\n                                    Update permission\n                                "
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              on: { click: _vm.assignPermission }
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "c-icon cil-lock-locked mr-1 align-middle"
+                              }),
+                              _vm._v(
+                                "\n                                    Update permission\n                                "
+                              )
+                            ]
                           )
                         ]
                       )
-                    ]
-                  )
-                ])
-              ]),
+                    ])
+                  ])
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "div",
@@ -59376,7 +59378,15 @@ var render = function() {
                         "table table-hover table-bordered table-striped table-sm"
                     },
                     [
-                      _vm._m(0),
+                      _c("thead", [
+                        _c("th", [_vm._v("ID.")]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v("Resource name")]),
+                        _vm._v(" "),
+                        _vm.$can("assignpermission.ubah")
+                          ? _c("th", [_vm._v("Delete")])
+                          : _vm._e()
+                      ]),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -59405,27 +59415,29 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(permission.name))]),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-danger btn-sm",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.revokePermission(
-                                            permission.name
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "c-icon cil-trash align-middle"
-                                      })
-                                    ]
-                                  )
-                                ])
+                                _vm.$can("assignpermission.ubah")
+                                  ? _c("td", [
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.revokePermission(
+                                                permission.name
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "c-icon cil-trash align-middle"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  : _vm._e()
                               ]
                             )
                           }),
@@ -59442,7 +59454,7 @@ var render = function() {
                                 }
                               ]
                             },
-                            [_vm._m(1)]
+                            [_vm._m(0)]
                           )
                         ],
                         2
@@ -59482,18 +59494,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("th", [_vm._v("ID.")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Resource name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Delete")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -59566,7 +59566,7 @@ var render = function() {
         { staticClass: "card-body" },
         [
           _c("div", { staticClass: "text-right" }, [
-            _vm.deletePermissions.length > 0
+            _vm.deletePermissions.length > 0 && _vm.$can("permission.hapus")
               ? _c(
                   "button",
                   {
@@ -59581,7 +59581,10 @@ var render = function() {
                     _vm._v("Hapus yang dipilih\n                ")
                   ]
                 )
-              : _c(
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$can("permission.hapus")
+              ? _c(
                   "button",
                   {
                     staticClass: "btn btn-danger",
@@ -59593,21 +59596,26 @@ var render = function() {
                     }),
                     _vm._v("Hapus yang dipilih\n                ")
                   ]
-                ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: { click: _vm.showCreatePermissionModal }
-              },
-              [
-                _c("i", { staticClass: "c-icon mr-2 cil-plus align-middle" }),
-                _vm._v(
-                  "\n                    Tambah Permission\n                "
                 )
-              ]
-            )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$can("permission.tambah")
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.showCreatePermissionModal }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                    }),
+                    _vm._v(
+                      "\n                    Tambah Permission\n                "
+                    )
+                  ]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row mt-3" }, [
@@ -59718,46 +59726,49 @@ var render = function() {
                 [
                   _c("thead", [
                     _c("tr", [
-                      _c("th", [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.allSelect,
-                              expression: "allSelect"
-                            }
-                          ],
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            checked: Array.isArray(_vm.allSelect)
-                              ? _vm._i(_vm.allSelect, null) > -1
-                              : _vm.allSelect
-                          },
-                          on: {
-                            click: _vm.selectAll,
-                            change: function($event) {
-                              var $$a = _vm.allSelect,
-                                $$el = $event.target,
-                                $$c = $$el.checked ? true : false
-                              if (Array.isArray($$a)) {
-                                var $$v = null,
-                                  $$i = _vm._i($$a, $$v)
-                                if ($$el.checked) {
-                                  $$i < 0 && (_vm.allSelect = $$a.concat([$$v]))
-                                } else {
-                                  $$i > -1 &&
-                                    (_vm.allSelect = $$a
-                                      .slice(0, $$i)
-                                      .concat($$a.slice($$i + 1)))
+                      _vm.$can("permission.hapus")
+                        ? _c("th", [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.allSelect,
+                                  expression: "allSelect"
                                 }
-                              } else {
-                                _vm.allSelect = $$c
+                              ],
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: Array.isArray(_vm.allSelect)
+                                  ? _vm._i(_vm.allSelect, null) > -1
+                                  : _vm.allSelect
+                              },
+                              on: {
+                                click: _vm.selectAll,
+                                change: function($event) {
+                                  var $$a = _vm.allSelect,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = null,
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        (_vm.allSelect = $$a.concat([$$v]))
+                                    } else {
+                                      $$i > -1 &&
+                                        (_vm.allSelect = $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1)))
+                                    }
+                                  } else {
+                                    _vm.allSelect = $$c
+                                  }
+                                }
                               }
-                            }
-                          }
-                        })
-                      ]),
+                            })
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("th", [_vm._v("Nama")]),
                       _vm._v(" "),
@@ -59773,52 +59784,54 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.permissions.data, function(permission) {
                       return _c("tr", { key: permission.id }, [
-                        _c("td", [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.deletePermissions,
-                                expression: "deletePermissions"
-                              }
-                            ],
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              value: "" + permission.id,
-                              checked: Array.isArray(_vm.deletePermissions)
-                                ? _vm._i(
-                                    _vm.deletePermissions,
-                                    "" + permission.id
-                                  ) > -1
-                                : _vm.deletePermissions
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.deletePermissions,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = "" + permission.id,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      (_vm.deletePermissions = $$a.concat([
-                                        $$v
-                                      ]))
-                                  } else {
-                                    $$i > -1 &&
-                                      (_vm.deletePermissions = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
+                        _vm.$can("permission.hapus")
+                          ? _c("td", [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.deletePermissions,
+                                    expression: "deletePermissions"
                                   }
-                                } else {
-                                  _vm.deletePermissions = $$c
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  value: "" + permission.id,
+                                  checked: Array.isArray(_vm.deletePermissions)
+                                    ? _vm._i(
+                                        _vm.deletePermissions,
+                                        "" + permission.id
+                                      ) > -1
+                                    : _vm.deletePermissions
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.deletePermissions,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = "" + permission.id,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.deletePermissions = $$a.concat([
+                                            $$v
+                                          ]))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.deletePermissions = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.deletePermissions = $$c
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          })
-                        ]),
+                              })
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(permission.name))]),
                         _vm._v(" "),
@@ -59831,49 +59844,55 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-warning btn-sm",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showEditPermissionModal(permission)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass:
-                                  "c-icon cil-pencil mr-1 align-middle"
-                              }),
-                              _vm._v(
-                                "\n                                    edit\n                                "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-sm",
-                              on: {
-                                click: function($event) {
-                                  return _vm.showDestroyPermissionModal(
-                                    permission
+                          _vm.$can("permission.ubah")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-warning btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showEditPermissionModal(
+                                        permission
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "c-icon cil-pencil mr-1 align-middle"
+                                  }),
+                                  _vm._v(
+                                    "\n                                    edit\n                                "
                                   )
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass:
-                                  "c-icon cil-trash mr-1 align-middle"
-                              }),
-                              _vm._v(
-                                "\n                                    hapus\n                                "
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.$can("permission.hapus")
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "btn btn-danger btn-sm",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.showDestroyPermissionModal(
+                                        permission
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "c-icon cil-trash mr-1 align-middle"
+                                  }),
+                                  _vm._v(
+                                    "\n                                    hapus\n                                "
+                                  )
+                                ]
+                              )
+                            : _vm._e()
                         ])
                       ])
                     }),
@@ -61686,7 +61705,7 @@ var render = function() {
         { staticClass: "card-body" },
         [
           _c("div", { staticClass: "text-right" }, [
-            _vm.deleteUsers.length > 0
+            _vm.deleteUsers.length > 0 && _vm.$can("pengguna.hapus")
               ? _c(
                   "button",
                   {
@@ -61701,7 +61720,10 @@ var render = function() {
                     _vm._v("Hapus yang dipilih\n                ")
                   ]
                 )
-              : _c(
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$can("pengguna.hapus")
+              ? _c(
                   "button",
                   {
                     staticClass: "btn btn-danger",
@@ -61713,21 +61735,26 @@ var render = function() {
                     }),
                     _vm._v("Hapus yang dipilih\n                ")
                   ]
-                ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: { click: _vm.showCreateUserModal }
-              },
-              [
-                _c("i", { staticClass: "c-icon mr-2 cil-plus align-middle" }),
-                _vm._v(
-                  "\n                    Tambah Pengguna\n                "
                 )
-              ]
-            )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.$can("pengguna.tambah")
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.showCreateUserModal }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "c-icon mr-2 cil-plus align-middle"
+                    }),
+                    _vm._v(
+                      "\n                    Tambah Pengguna\n                "
+                    )
+                  ]
+                )
+              : _vm._e()
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row mt-3" }, [
@@ -61971,68 +61998,74 @@ var render = function() {
                         _vm._v(" "),
                         user.id !== _vm.loggedUserId
                           ? _c("td", [
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-warning btn-sm",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.showEditUserModal(user)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "c-icon cil-pencil mr-1 align-middle"
-                                  }),
-                                  _vm._v(
-                                    "\n                                    edit\n                                "
+                              _vm.$can("pengguna.ubah")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-warning btn-sm",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showEditUserModal(user)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "c-icon cil-pencil mr-1 align-middle"
+                                      }),
+                                      _vm._v(
+                                        "\n                                    edit\n                                "
+                                      )
+                                    ]
                                   )
-                                ]
-                              ),
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.showDetailUserModal(user)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "c-icon cil-file mr-1 align-middle"
-                                  }),
-                                  _vm._v(
-                                    "\n                                    lihat\n                                "
+                              _vm.$can("pengguna.lihat")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-info btn-sm",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showDetailUserModal(user)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "c-icon cil-file mr-1 align-middle"
+                                      }),
+                                      _vm._v(
+                                        "\n                                    lihat\n                                "
+                                      )
+                                    ]
                                   )
-                                ]
-                              ),
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-danger btn-sm",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.showDestroyUserModal(user)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass:
-                                      "c-icon cil-trash mr-1 align-middle"
-                                  }),
-                                  _vm._v(
-                                    "\n                                    hapus\n                                "
+                              _vm.$can("pengguna.hapus")
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showDestroyUserModal(user)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "c-icon cil-trash mr-1 align-middle"
+                                      }),
+                                      _vm._v(
+                                        "\n                                    hapus\n                                "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e()
                             ])
                           : _c("td", [_vm._m(0, true)])
                       ])
@@ -62552,26 +62585,28 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        on: {
-                          click: function($event) {
-                            return _vm.resetPassword(_vm.detailUser.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass:
-                            "c-icon cil-lock-locked mr-1 align-middle"
-                        }),
-                        _vm._v(
-                          "\n                                    Reset kata sandi\n                                "
+                    _vm.$can("pengguna.ubah")
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            on: {
+                              click: function($event) {
+                                return _vm.resetPassword(_vm.detailUser.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "c-icon cil-lock-locked mr-1 align-middle"
+                            }),
+                            _vm._v(
+                              "\n                                    Reset kata sandi\n                                "
+                            )
+                          ]
                         )
-                      ]
-                    )
+                      : _vm._e()
                   ])
                 ])
               ]),
@@ -62841,80 +62876,88 @@ var render = function() {
           _vm._v("Menu Utama")
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "c-sidebar-nav-item c-sidebar-nav-dropdown" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("ul", { staticClass: "c-sidebar-nav-dropdown-items" }, [
-            _vm.$can("role.lihat")
-              ? _c(
-                  "li",
-                  { staticClass: "c-sidebar-nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "c-sidebar-nav-link",
-                        attrs: { to: { name: "role" } }
-                      },
-                      [
-                        _c("span", { staticClass: "c-sidebar-nav-icon" }),
-                        _vm._v(
-                          "\n                            Role\n                        "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.$can("permission.lihat")
-              ? _c(
-                  "li",
-                  { staticClass: "c-sidebar-nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "c-sidebar-nav-link",
-                        attrs: { to: { name: "permission" } }
-                      },
-                      [
-                        _c("span", { staticClass: "c-sidebar-nav-icon" }),
-                        _vm._v(
-                          "\n                            Permissions\n                        "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.$can("assignpermission.lihat")
-              ? _c(
-                  "li",
-                  { staticClass: "c-sidebar-nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "c-sidebar-nav-link",
-                        attrs: { to: { name: "assignpermission" } }
-                      },
-                      [
-                        _c("span", { staticClass: "c-sidebar-nav-icon" }),
-                        _vm._v(
-                          "\n                            Assign Permissions\n                        "
-                        )
-                      ]
-                    )
-                  ],
-                  1
-                )
-              : _vm._e()
-          ])
-        ]),
+        _vm.$can("role.lihat") ||
+        _vm.$can("permission.lihat") ||
+        _vm.$can("assignpermission.lihat")
+          ? _c(
+              "li",
+              { staticClass: "c-sidebar-nav-item c-sidebar-nav-dropdown" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c("ul", { staticClass: "c-sidebar-nav-dropdown-items" }, [
+                  _vm.$can("role.lihat")
+                    ? _c(
+                        "li",
+                        { staticClass: "c-sidebar-nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "c-sidebar-nav-link",
+                              attrs: { to: { name: "role" } }
+                            },
+                            [
+                              _c("span", { staticClass: "c-sidebar-nav-icon" }),
+                              _vm._v(
+                                "\n                            Role\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$can("permission.lihat")
+                    ? _c(
+                        "li",
+                        { staticClass: "c-sidebar-nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "c-sidebar-nav-link",
+                              attrs: { to: { name: "permission" } }
+                            },
+                            [
+                              _c("span", { staticClass: "c-sidebar-nav-icon" }),
+                              _vm._v(
+                                "\n                            Permissions\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.$can("assignpermission.lihat")
+                    ? _c(
+                        "li",
+                        { staticClass: "c-sidebar-nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "c-sidebar-nav-link",
+                              attrs: { to: { name: "assignpermission" } }
+                            },
+                            [
+                              _c("span", { staticClass: "c-sidebar-nav-icon" }),
+                              _vm._v(
+                                "\n                            Assign Permissions\n                        "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ])
+              ]
+            )
+          : _vm._e(),
         _vm._v(" "),
         _vm.$can("pengguna.lihat")
           ? _c(
@@ -63023,37 +63066,41 @@ var render = function() {
       _vm._m(2),
       _vm._v(" "),
       _c("ul", { staticClass: "c-header-nav d-md-down-none" }, [
-        _c(
-          "li",
-          { staticClass: "c-header-nav-item px-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "c-header-nav-link",
-                attrs: { to: { name: "dashboard" } }
-              },
-              [_vm._v("Dashbor")]
+        _vm.$can("dashbor.lihat")
+          ? _c(
+              "li",
+              { staticClass: "c-header-nav-item px-3" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "c-header-nav-link",
+                    attrs: { to: { name: "dashboard" } }
+                  },
+                  [_vm._v("Dashbor")]
+                )
+              ],
+              1
             )
-          ],
-          1
-        ),
+          : _vm._e(),
         _vm._v(" "),
-        _c(
-          "li",
-          { staticClass: "c-header-nav-item px-3" },
-          [
-            _c(
-              "router-link",
-              {
-                staticClass: "c-header-nav-link",
-                attrs: { to: { name: "user" } }
-              },
-              [_vm._v("Pengguna")]
+        _vm.$can("pengguna.lihat")
+          ? _c(
+              "li",
+              { staticClass: "c-header-nav-item px-3" },
+              [
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "c-header-nav-link",
+                    attrs: { to: { name: "user" } }
+                  },
+                  [_vm._v("Pengguna")]
+                )
+              ],
+              1
             )
-          ],
-          1
-        ),
+          : _vm._e(),
         _vm._v(" "),
         _vm._m(3)
       ]),
@@ -63126,16 +63173,18 @@ var render = function() {
         _c("ol", { staticClass: "breadcrumb border-0 m-0" }, [
           _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Backoffice")]),
           _vm._v(" "),
-          _c(
-            "li",
-            { staticClass: "breadcrumb-item" },
-            [
-              _c("router-link", { attrs: { to: { name: "dashboard" } } }, [
-                _vm._v("Admin")
-              ])
-            ],
-            1
-          ),
+          _vm.$can("dashbor.lihat")
+            ? _c(
+                "li",
+                { staticClass: "breadcrumb-item" },
+                [
+                  _c("router-link", { attrs: { to: { name: "dashboard" } } }, [
+                    _vm._v("Admin")
+                  ])
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c("li", { staticClass: "breadcrumb-item active" }, [
             _vm._v(_vm._s(_vm.pageTitle))

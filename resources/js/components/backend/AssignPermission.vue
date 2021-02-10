@@ -20,7 +20,7 @@
                     <div class="card-body">
                         <h3>Permission</h3>
                         <p class="text-muted">Ubah permission dari role yang dipilih</p>
-                        <div class="row">
+                        <div class="row" v-if="$can('assignpermission.ubah')">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <v-select v-model="selectedPermission" :options="permissionOptions"></v-select>
@@ -57,14 +57,14 @@
                                 <thead>
                                     <th>ID.</th>
                                     <th>Resource name</th>
-                                    <th>Delete</th>
+                                    <th v-if="$can('assignpermission.ubah')">Delete</th>
                                 </thead>
                                 <tbody>
                                     <tr v-for="permission in roleWithPermissions.data" :key="permission.id"
                                         v-show="selectedRole !== '' && roleWithPermissions.data.length > 0">
                                         <td>{{ permission.id }}</td>
                                         <td>{{ permission.name }}</td>
-                                        <td>
+                                        <td v-if="$can('assignpermission.ubah')">
                                             <button class="btn btn-danger btn-sm"
                                                 @click="revokePermission(permission.name)">
                                                 <i class="c-icon cil-trash align-middle"></i>
